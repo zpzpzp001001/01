@@ -169,6 +169,17 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
          crossorigin="anonymous"></script>
+    {{ if eq .Type "post" }}
+    <!-- Article pages - Manual ads only (no auto-ads to prevent conflicts) -->
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-6110235592475603",
+            enable_page_level_ads: false, // Disabled for article pages to prevent conflicts with manual ads
+            overlays: {bottom: false}
+        });
+    </script>
+    {{ else }}
+    <!-- Non-article pages - Auto ads enabled -->
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
             google_ad_client: "ca-pub-6110235592475603",
@@ -201,6 +212,7 @@
             }
         });
     </script>
+    {{ end }}
     
     <!-- DNS Prefetch for performance -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
