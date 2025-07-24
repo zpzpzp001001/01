@@ -31,11 +31,9 @@ draft: false
 
 ## 대형 세단의 부활, 7시리즈가 그리는 새로운 지도
 
-<div style="text-align: center; margin: 30px 0;">
-<div style="font-size: 11px; color: #999; margin-bottom: 10px;">광고</div>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
-     style="display:block"
+     style="display:block; margin: 40px auto; max-width: 100%;"
      data-ad-client="ca-pub-6110235592475603"
      data-ad-slot="6158968171"
      data-ad-format="auto"
@@ -43,7 +41,6 @@ draft: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
 
 ![BMW 7시리즈 대형 세단 인기](https://imagedelivery.net/H9Db0IpqceHdtipd1X60mg/380fe6c1-a40c-4d4c-e7d1-338ee5119a00/public)
 *출처: 온라인 커뮤니티*
