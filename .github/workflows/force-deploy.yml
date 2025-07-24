@@ -20,11 +20,13 @@ jobs:
           
       - name: Build Hugo site
         run: |
-          hugo --minify --gc
+          hugo --minify --gc --cleanDestinationDir --forceSyncStatic
+        env:
+          HUGO_ENV: production
           
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=netfilesnext --compatibility-date=2024-01-01
+          command: pages deploy public --project-name=netfilesnext --compatibility-date=2024-01-01 --force
