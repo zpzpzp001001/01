@@ -904,39 +904,64 @@ function initializeContentAds() {
 }
 
 function insertContentAds() {
-    // 기사 본문 컨테이너 확인 (여러 선택자 시도)
-    const articleContent = document.querySelector('.article-body, .article-content, #article-content, .content, .post-content');
+    console.log('=== Starting insertContentAds ===');
+    
+    // 기사 본문 컨테이너 확인
+    const articleContent = document.querySelector('#article-content, .article-body, .article-content');
     
     if (!articleContent) {
-        console.log('Article content container not found');
+        console.log('❌ Article content container not found');
         return;
     }
     
-    console.log('Found article content container:', articleContent);
+    console.log('✅ Found article content container:', articleContent.className, articleContent.id);
     
-    // H5와 H2 태그 찾기 (마크다운에서 렌더링된 HTML)
-    const headings = articleContent.querySelectorAll('h5, h2, h3, h4');
-    console.log('Found headings:', headings.length);
+    // 이미 광고가 삽입되었는지 확인
+    const existingAds = articleContent.querySelectorAll('.content-ad-container');
+    if (existingAds.length > 0) {
+        console.log('⚠️ Ads already inserted, count:', existingAds.length);
+        return;
+    }
+    
+    // 모든 헤딩 태그 찾기
+    const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    console.log('📝 Found headings:', headings.length);
+    
+    // 헤딩이 없다면 문단 기반으로 삽입
+    if (headings.length === 0) {
+        const paragraphs = articleContent.querySelectorAll('p');
+        console.log('📄 No headings found, trying paragraphs:', paragraphs.length);
+        
+        if (paragraphs.length >= 3) {
+            // 3번째, 6번째 문단 다음에 광고 삽입
+            [2, 5].forEach((index, adIndex) => {
+                if (paragraphs[index]) {
+                    console.log(`🎯 Inserting ad after paragraph ${index + 1}`);
+                    insertAdAfterElement(paragraphs[index], adIndex);
+                }
+            });
+        }
+        return;
+    }
     
     let adCount = 0;
-    const maxAds = 5; // 최대 광고 개수 제한
+    const maxAds = 5;
     
     headings.forEach((heading, index) => {
-        // 광고 개수 제한
         if (adCount >= maxAds) return;
         
-        // 첫 번째 헤딩은 건너뛰기 (제목 바로 다음은 광고 없이)
-        if (index === 0) return;
-        
-        // 2번째 헤딩부터는 광고 삽입 (더 많은 광고 노출)
-        if (index >= 1) {
-            console.log('Inserting ad after heading:', heading.textContent);
-            insertAdAfterElement(heading, adCount);
-            adCount++;
+        // 첫 번째 헤딩은 건너뛰기
+        if (index === 0) {
+            console.log(`⏭️ Skipping first heading: ${heading.textContent.substring(0, 30)}`);
+            return;
         }
+        
+        console.log(`🎯 Inserting ad after heading ${index}: ${heading.tagName} - ${heading.textContent.substring(0, 30)}`);
+        insertAdAfterElement(heading, adCount);
+        adCount++;
     });
     
-    console.log('Total ads inserted:', adCount);
+    console.log('📊 Total ads inserted:', adCount);
 }
 
 // 요소 다음에 광고 삽입
