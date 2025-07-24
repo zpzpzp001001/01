@@ -116,6 +116,9 @@ imaging:
   png:
     quality: 95
 
+# Disable Hugo's default sitemap generation - using custom sitemap
+disableKinds: ['sitemap']
+
 sitemap:
   changefreq: hourly
   priority: 0.5
