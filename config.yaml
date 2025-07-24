@@ -146,6 +146,9 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
+# Force rebuild - video sitemap removal
+# Last updated: 2025-07-24
+
 # SEO 최적화
 googleAnalytics: ""
 disableKinds: []
