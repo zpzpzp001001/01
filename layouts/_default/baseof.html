@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#dc3545">
     
     <!-- SEO Meta Tags -->
-    <title>{{ if .IsHome }}앤포이즈{{ else }}{{ .Title }} - 앤포이즈{{ end }}</title>
+    <title>{{ if .IsHome }}넷파일즈{{ else }}{{ .Title }} - 넷파일즈{{ end }}</title>
     <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <meta name="keywords" content="{{ if .Params.tags }}{{ delimit .Params.tags ", " }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
     <meta name="author" content="{{ if .Params.author }}{{ .Params.author }}{{ else }}오승희{{ end }}">
@@ -27,7 +27,7 @@
     <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
     <meta property="og:url" content="{{ .Permalink }}">
-    <meta property="og:site_name" content="앤포이즈">
+    <meta property="og:site_name" content="넷파일즈">
     {{ $image := "" }}
     {{ if .Params.thumbnail }}
         {{ $image = .Params.thumbnail }}
@@ -103,7 +103,7 @@
         },
         "publisher": {
             "@type": "Organization",
-            "name": "앤포이즈",
+            "name": "넷파일즈",
             "logo": {
                 "@type": "ImageObject",
                 "url": "{{ "/images/logo.png" | absURL }}",

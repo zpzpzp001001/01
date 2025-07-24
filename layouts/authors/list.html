@@ -8,7 +8,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-8">
                     <h1 class="page-title">{{ .Title }}</h1>
-                    <p class="page-description">{{ .Description | default "앤포이즈의 전문 기자진을 소개합니다." }}</p>
+                    <p class="page-description">{{ .Description | default "넷파일즈의 전문 기자진을 소개합니다." }}</p>
                 </div>
                 <div class="col-lg-4">
                     <div class="page-stats">
@@ -36,7 +36,7 @@
                                 <h3 class="author-name">
                                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                                 </h3>
-                                <div class="author-bio">{{ .Params.bio | default "앤포이즈 기자" }}</div>
+                                <div class="author-bio">{{ .Params.bio | default "넷파일즈 기자" }}</div>
                                 
                                 {{ if .Params.specialization }}
                                 <div class="author-specialization">
