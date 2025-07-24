@@ -992,6 +992,7 @@ function insertAdAfterElement(element, adIndex) {
     const adElement = document.createElement('ins');
     adElement.className = 'adsbygoogle';
     adElement.setAttribute('data-ad-client', 'ca-pub-6110235592475603');
+    adElement.setAttribute('data-ad-slot', '6158968171');
     adElement.setAttribute('data-ad-format', 'auto');
     adElement.setAttribute('data-full-width-responsive', 'true');
     adElement.style.cssText = `
