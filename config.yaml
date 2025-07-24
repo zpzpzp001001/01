@@ -119,6 +119,14 @@ imaging:
 # Disable Hugo's default sitemap generation - using custom sitemap only
 disableKinds: ['sitemap']
 
+# Explicitly disable video sitemaps
+ignoreFiles:
+  - "sitemap-video\\.xml$"
+
+# Override default sitemap settings to prevent video sitemap generation
+sitemap:
+  disable: true
+
 related:
   includeNewer: true
   indices:
