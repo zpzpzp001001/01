@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeEnhancedUpNext();
     // 접근성 향상
     initializeAccessibility();
-    // H5, H2 태그 다음에 광고 삽입
-    initializeContentAds();
+    // AdSense 자동 삽입 제거됨
 });
 
 // Reading Progress Bar
@@ -872,8 +871,7 @@ window.addEventListener('load', function() {
     setTimeout(() => {
         optimizeImageLoading();
         optimizeLayout();
-        // 마크다운 렌더링 완료 후 광고 재시도
-        insertContentAds();
+        // AdSense 삽입 제거됨
     }, 100);
 });
 
@@ -895,125 +893,5 @@ function debounce(func, wait) {
     };
 }
 
-// H5, H2 태그 다음에 애드센스 광고 삽입
-function initializeContentAds() {
-    // DOM이 완전히 로드된 후 약간의 지연을 두고 실행
-    setTimeout(() => {
-        insertContentAds();
-    }, 500);
-}
-
-function insertContentAds() {
-    console.log('=== Starting insertContentAds ===');
-    
-    // 기사 본문 컨테이너 확인
-    const articleContent = document.querySelector('#article-content, .article-body, .article-content');
-    
-    if (!articleContent) {
-        console.log('❌ Article content container not found');
-        return;
-    }
-    
-    console.log('✅ Found article content container:', articleContent.className, articleContent.id);
-    
-    // 이미 광고가 삽입되었는지 확인
-    const existingAds = articleContent.querySelectorAll('.content-ad-container');
-    if (existingAds.length > 0) {
-        console.log('⚠️ Ads already inserted, count:', existingAds.length);
-        return;
-    }
-    
-    // 모든 헤딩 태그 찾기
-    const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    console.log('📝 Found headings:', headings.length);
-    
-    // 헤딩이 없다면 문단 기반으로 삽입
-    if (headings.length === 0) {
-        const paragraphs = articleContent.querySelectorAll('p');
-        console.log('📄 No headings found, trying paragraphs:', paragraphs.length);
-        
-        if (paragraphs.length >= 3) {
-            // 3번째, 6번째 문단 다음에 광고 삽입
-            [2, 5].forEach((index, adIndex) => {
-                if (paragraphs[index]) {
-                    console.log(`🎯 Inserting ad after paragraph ${index + 1}`);
-                    insertAdAfterElement(paragraphs[index], adIndex);
-                }
-            });
-        }
-        return;
-    }
-    
-    let adCount = 0;
-    const maxAds = 5;
-    
-    headings.forEach((heading, index) => {
-        if (adCount >= maxAds) return;
-        
-        // 첫 번째 헤딩은 건너뛰기
-        if (index === 0) {
-            console.log(`⏭️ Skipping first heading: ${heading.textContent.substring(0, 30)}`);
-            return;
-        }
-        
-        console.log(`🎯 Inserting ad after heading ${index}: ${heading.tagName} - ${heading.textContent.substring(0, 30)}`);
-        insertAdAfterElement(heading, adCount);
-        adCount++;
-    });
-    
-    console.log('📊 Total ads inserted:', adCount);
-}
-
-// 요소 다음에 광고 삽입
-function insertAdAfterElement(element, adIndex) {
-    // 광고 컨테이너 생성
-    const adContainer = document.createElement('div');
-    adContainer.className = 'content-ad-container';
-    adContainer.style.cssText = `
-        margin: 40px 0;
-        text-align: center;
-        clear: both;
-    `;
-    
-    // 광고 라벨 추가
-    const adLabel = document.createElement('div');
-    adLabel.className = 'ad-label';
-    adLabel.textContent = '광고';
-    adLabel.style.cssText = `
-        font-size: 11px;
-        color: #999;
-        text-align: center;
-        margin-bottom: 10px;
-        font-weight: normal;
-        opacity: 0.8;
-    `;
-    
-    // 애드센스 광고 요소 생성
-    const adElement = document.createElement('ins');
-    adElement.className = 'adsbygoogle';
-    adElement.setAttribute('data-ad-client', 'ca-pub-6110235592475603');
-    adElement.setAttribute('data-ad-slot', '6158968171');
-    adElement.setAttribute('data-ad-format', 'auto');
-    adElement.setAttribute('data-full-width-responsive', 'true');
-    adElement.style.cssText = `
-        display: block;
-        margin: 20px auto;
-        max-width: 600px;
-        width: 100%;
-    `;
-    
-    // 컨테이너에 요소들 추가
-    adContainer.appendChild(adLabel);
-    adContainer.appendChild(adElement);
-    
-    // 해딩 요소 다음에 광고 삽입
-    element.parentNode.insertBefore(adContainer, element.nextSibling);
-    
-    // 애드센스 광고 로드
-    try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-        console.log('AdSense loading error:', e);
-    }
-}
+// AdSense 관련 코드 제거됨
 

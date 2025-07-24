@@ -166,31 +166,20 @@
     </script>
     {{ end }}
     
-    <!-- Google AdSense -->
+    <!-- Google AdSense - Auto ads only (no manual ads) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
          crossorigin="anonymous"></script>
-    {{ if eq .Type "post" }}
-    <!-- Article pages - Manual ads only (no auto-ads to prevent conflicts) -->
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-6110235592475603",
-            enable_page_level_ads: false, // Disabled for article pages to prevent conflicts with manual ads
-            overlays: {bottom: false}
-        });
-    </script>
-    {{ else }}
-    <!-- Non-article pages - Auto ads enabled -->
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
             google_ad_client: "ca-pub-6110235592475603",
             enable_page_level_ads: true,
             overlays: {bottom: true},
             ads: {
-                // 텍스트 내 광고 - 자동 배치로 재활성화
+                // 텍스트 내 광고 - 자동 배치
                 text: {
                     enabled: true,
-                    frequency: 2,  // 2번째 문단마다 광고 표시 (더 자주)
-                    minimum_words_between_ads: 100  // 최소 단어 수를 낮춤
+                    frequency: 2,
+                    minimum_words_between_ads: 100
                 },
                 // 인피드 광고 (기사 목록형 광고)
                 infeed: {
@@ -203,7 +192,7 @@
                 // 앵커 광고 설정 - 모바일에서만 활성화
                 anchor: {
                     enabled: true,
-                    mobile_only: true  // 모바일에서만 표시
+                    mobile_only: true
                 },
                 // 비그네트 광고 (전면 광고) - 비활성화
                 vignette: {
@@ -212,7 +201,6 @@
             }
         });
     </script>
-    {{ end }}
     
     <!-- DNS Prefetch for performance -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">

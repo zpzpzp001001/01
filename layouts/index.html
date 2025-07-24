@@ -1,6 +1,6 @@
 {{ define "main" }}
 <main class="main-content py-4">
-    <div class="container" data-ad-layout="none" data-ad-format="none">
+    <div class="container">
         {{ $articles := where .Site.RegularPages "Section" "automotive" }}
         {{ $randomArticles := $articles | shuffle }}
         {{ $sortedArticles := $randomArticles.ByDate.Reverse }}
@@ -209,20 +209,7 @@
     transition: transform 0.2s ease-in-out;
 }
 
-/* AdSense 자동 광고 방지 - 메인 페이지에서만 적용 */
-.main-content [data-ad-layout="none"] ins[class*="adsbygoogle"],
-.main-content .container ins[class*="adsbygoogle"],
-.headline-section ins[class*="adsbygoogle"],
-.latest-news-section ins[class*="adsbygoogle"],
-.news-card ins[class*="adsbygoogle"] {
-    display: none !important;
-}
-
-/* 메인 페이지 콘텐츠 박스 내 자동 광고 차단 */
-.main-content .container > ins[class*="adsbygoogle"],
-.main-content .news-card ins[class*="adsbygoogle"] {
-    display: none !important;
-}
+/* AdSense 광고 방지 CSS 제거됨 */
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
