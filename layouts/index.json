@@ -1,0 +1,17 @@
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+{{- $pages = $pages | first 1000 -}}
+[
+{{- range $index, $page := $pages -}}
+{{- if ne $index 0 -}},{{- end }}
+{
+  "title": {{ $page.Title | jsonify }},
+  "description": {{ $page.Description | jsonify }},
+  "content": {{ $page.Plain | jsonify }},
+  "url": {{ $page.Permalink | jsonify }},
+  "date": {{ $page.Date.Format "2006-01-02" | jsonify }},
+  "categories": {{ $page.Params.categories | jsonify }},
+  "tags": {{ $page.Params.tags | jsonify }},
+  "author": {{ $page.Params.author | jsonify }}
+}
+{{- end -}}
+] 

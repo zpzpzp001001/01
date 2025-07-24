@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{ partial "breadcrumb.html" . }}
+
+<section class="taxonomy-page">
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <i class="fas fa-{{ if eq .Data.Plural "tags" }}tags{{ else if eq .Data.Plural "authors" }}user{{ else }}folder{{ end }}"></i>
+                {{ if eq .Data.Plural "tags" }}#{{ end }}{{ .Title }}
+            </h1>
+            <p class="page-meta">{{ .Data.Pages | len }}개의 기사</p>
+        </div>
+
+        <div class="articles-grid">
+            <div class="row">
+                {{ range .Paginator.Pages }}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    {{ partial "article-card.html" . }}
+                </div>
+                {{ end }}
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        {{ if gt .Paginator.TotalPages 1 }}
+        <nav class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                {{ if .Paginator.HasPrev }}
+                <li class="page-item">
+                    <a class="page-link" href="{{ .Paginator.Prev.URL }}">이전</a>
+                </li>
+                {{ end }}
+
+                {{ range .Paginator.Pagers }}
+                <li class="page-item {{ if eq . $.Paginator }}active{{ end }}">
+                    <a class="page-link" href="{{ .URL }}">{{ .PageNumber }}</a>
+                </li>
+                {{ end }}
+
+                {{ if .Paginator.HasNext }}
+                <li class="page-item">
+                    <a class="page-link" href="{{ .Paginator.Next.URL }}">다음</a>
+                </li>
+                {{ end }}
+            </ul>
+        </nav>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

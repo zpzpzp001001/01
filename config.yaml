@@ -1,0 +1,171 @@
+baseURL: 'https://netfilesnext.com'
+languageCode: 'ko-kr'
+title: '앤포이즈'
+defaultContentLanguage: 'ko'
+hasCJKLanguage: true
+timeZone: 'Asia/Seoul'
+
+# GitHub Pages 배포 설정
+publishDir: 'public'
+relativeURLs: false
+canonifyURLs: true
+
+params:
+  description: '앤포이즈는 자동차, 전기차, 모빌리티 정보와 경제 분석을 전문적으로 다루는 자동차 경제 전문매체입니다.'
+  keywords: '자동차, 전기차, 모빌리티, 자동차뉴스, 신차정보, 자동차리뷰, 자동차산업, 자동차경제'
+  author: '오승희'
+  company: '앤포이즈'
+  address: '경상북도 경산시 진량읍 일연로 747'
+  phone: '010-7539-8504'
+  email: 'hangil9910@gmail.com'
+  publisher: '오승희'
+  editor: '오승희'
+  youthProtectionOfficer: '오승희'
+  
+  # 언론사 등록 정보
+  mediaRegistration: '경북,아55580'
+  registrationDate: '2025년 6월 15일'
+  publicationDate: '2025년 6월 15일'
+
+  # 이미지 가이드라인 (기자용 참고사항)
+  imageGuidelines:
+    minWidth: 1200
+    recommendedWidth: 1600
+    aspectRatio: "16:9"
+    format: "jpg"
+    quality: 95
+    description: "구글 디스커버 노출을 위해 최소 1200px 이상의 고품질 이미지를 사용하세요."
+
+menu:
+  main:
+    - name: '자동차'
+      url: '/automotive/'
+      weight: 10
+
+taxonomies:
+  tag: tags
+  category: categories
+  author: authors
+
+outputs:
+  home: ['HTML', 'RSS', 'JSON', 'SitemapGeneral', 'SitemapNews', 'SitemapAuthors', 'SitemapPages', 'SitemapLocal', 'SitemapVideo', 'PostSitemap']
+  page: ['HTML']
+  section: ['HTML', 'RSS']
+
+outputFormats:
+  SitemapGeneral:
+    mediaType: 'application/xml'
+    baseName: 'sitemap-general'
+    isPlainText: true
+    notAlternative: true
+  SitemapNews:
+    mediaType: 'application/xml'
+    baseName: 'sitemap-news'
+    isPlainText: true
+    notAlternative: true
+  SitemapAuthors:
+    mediaType: 'application/xml'
+    baseName: 'sitemap-authors'
+    isPlainText: true
+    notAlternative: true
+  SitemapPages:
+    mediaType: 'application/xml'
+    baseName: 'sitemap-pages'
+    isPlainText: true
+    notAlternative: true
+  SitemapLocal:
+    mediaType: 'application/xml'
+    baseName: 'sitemap-local'
+    isPlainText: true
+    notAlternative: true
+  SitemapVideo:
+    mediaType: 'application/xml'
+    baseName: 'sitemap-video'
+    isPlainText: true
+    notAlternative: true
+  PostSitemap:
+    mediaType: 'application/xml'
+    baseName: 'post-sitemap1'
+    isPlainText: true
+    notAlternative: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: github
+    lineNos: true
+
+imaging:
+  resampleFilter: lanczos
+  quality: 95
+  anchor: smart
+  # 구글 디스커버 최적화를 위한 이미지 크기 설정
+  sizes:
+    - "480x270"   # 16:9 소형 썸네일
+    - "800x450"   # 16:9 중형 썸네일
+    - "1200x675"  # 16:9 대형 이미지 (구글 디스커버 권장)
+    - "1600x900"  # 16:9 초고화질
+    - "1200x630"  # Open Graph 표준 (Facebook, Twitter)
+  # 이미지 처리 옵션
+  bgColor: "#ffffff"
+  hint: photo
+  # WebP 지원 설정
+  formats: ["webp", "jpeg", "png"]
+  webp:
+    quality: 85
+    lossless: false
+  jpeg:
+    quality: 95
+  png:
+    quality: 95
+
+sitemap:
+  changefreq: hourly
+  priority: 0.5
+  filename: sitemap.xml
+
+related:
+  includeNewer: true
+  indices:
+    - name: keywords
+      weight: 100
+    - name: tags
+      weight: 80
+    - name: date
+      weight: 10
+
+pagination:
+  pagerSize: 12
+  path: page
+
+enableRobotsTXT: true
+enableGitInfo: true
+
+# 빌드 최적화
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# SEO 최적화
+googleAnalytics: ""
+disableKinds: []
+
+# URL 최적화
+uglyURLs: false
+canonifyURLs: false
+relativeURLs: false
+
+# 보안 헤더
+security:
+  enableInlineShortcodes: false
+  funcs:
+    getenv:
+      - "^HUGO_"
+      - "^WC_"
+  http:
+    methods:
+      - "(?i)GET|POST"
+    urls:
+      - ".*"

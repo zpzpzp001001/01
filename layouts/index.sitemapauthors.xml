@@ -1,0 +1,45 @@
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Authors Section -->
+    {{ $authorsSection := .Site.GetPage "section" "authors" }}
+    {{ if $authorsSection }}
+    <url>
+        <loc>{{ $authorsSection.Permalink }}</loc>
+        <lastmod>{{ $authorsSection.Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    {{ end }}
+    
+    <!-- Individual Author Pages -->
+    {{ range where .Site.RegularPages "Section" "authors" }}
+    <url>
+        <loc>{{ .Permalink }}</loc>
+        <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        {{ if .Params.profile_image }}
+        <image:image>
+            <image:loc>{{ .Params.profile_image | absURL }}</image:loc>
+            <image:caption>{{ .Title }} - {{ .Site.Title }} 기자</image:caption>
+            <image:title>{{ .Title }}</image:title>
+        </image:image>
+        {{ end }}
+    </url>
+    {{ end }}
+    
+    <!-- Author Taxonomy Pages -->
+    {{ if .Site.Taxonomies.authors }}
+    {{ range .Site.Taxonomies.authors }}
+    <url>
+        <loc>{{ .Page.Permalink }}</loc>
+        <lastmod>{{ .Page.Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    {{ end }}
+    {{ end }}
+    
+</urlset> 

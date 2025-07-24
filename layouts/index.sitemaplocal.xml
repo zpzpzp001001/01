@@ -1,0 +1,75 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML -}}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:geo="http://www.google.com/geo/schemas/sitemap/1.0">
+    <!-- Local business sitemap for {{ .Site.Params.company }} -->
+    <!-- Address: {{ .Site.Params.address }} -->
+    <!-- Last updated: {{ now.Format "2006-01-02T15:04:05-07:00" }} -->
+
+    <!-- Company/Organization Main Page with Location Info -->
+    <url>
+        <loc>{{ "about/" | absURL }}</loc>
+        <lastmod>{{ now.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <geo:geo>
+            <geo:format>kml</geo:format>
+            <Point xmlns="http://www.opengis.net/kml/2.2">
+                <coordinates>{{ .Site.Params.longitude | default "128.8035869" }},{{ .Site.Params.latitude | default "35.8752269" }},0</coordinates>
+            </Point>
+        </geo:geo>
+    </url>
+
+    <!-- Contact Page with Business Location -->
+    <url>
+        <loc>{{ "contact/" | absURL }}</loc>
+        <lastmod>{{ now.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <geo:geo>
+            <geo:format>kml</geo:format>
+            <Point xmlns="http://www.opengis.net/kml/2.2">
+                <coordinates>{{ .Site.Params.longitude | default "128.8035869" }},{{ .Site.Params.latitude | default "35.8752269" }},0</coordinates>
+            </Point>
+        </geo:geo>
+    </url>
+
+    <!-- Homepage with Business Information -->
+    <url>
+        <loc>{{ .Site.BaseURL }}</loc>
+        <lastmod>{{ now.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <geo:geo>
+            <geo:format>kml</geo:format>
+            <Point xmlns="http://www.opengis.net/kml/2.2">
+                <coordinates>{{ .Site.Params.longitude | default "128.8035869" }},{{ .Site.Params.latitude | default "35.8752269" }},0</coordinates>
+            </Point>
+        </geo:geo>
+    </url>
+
+    <!-- Regional Economic News -->
+    {{- range where .Site.RegularPages "Section" "economy" -}}
+        {{- if not .Params.private -}}
+    <url>
+        <loc>{{ .Permalink | safeURL }}</loc>
+        <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+        {{- end -}}
+    {{- end -}}
+
+    <!-- Automotive News -->
+    {{- range where .Site.RegularPages "Section" "automotive" -}}
+        {{- if not .Params.private -}}
+    <url>
+        <loc>{{ .Permalink | safeURL }}</loc>
+        <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+        {{- end -}}
+    {{- end -}}
+
+</urlset> 

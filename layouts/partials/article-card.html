@@ -1,0 +1,73 @@
+<article class="article-card">
+    <div class="card h-100 clickable-card" data-href="{{ .Permalink }}">
+        {{ if .Params.image }}
+        <div class="card-img-wrapper">
+            <img src="{{ .Params.image }}" 
+                 loading="lazy" 
+                 class="card-img-top" 
+                 alt="{{ .Title }}"
+                 width="280" 
+                 height="200"
+                 style="aspect-ratio: 4/3; object-fit: cover; height: 200px;"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display: none; height: 200px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); display: flex; align-items: center; justify-content: center; color: #6c757d;">
+                <div style="text-align: center;">
+                    <i class="fas fa-image fa-2x mb-2"></i>
+                    <div>{{ .Section | title }}</div>
+                </div>
+            </div>
+            <div class="category-badge">{{ .Section | title }}</div>
+        </div>
+        {{ else }}
+        <div class="card-img-wrapper">
+            <div class="image-placeholder" style="height: 200px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); display: flex; align-items: center; justify-content: center; color: #6c757d;">
+                <div style="text-align: center;">
+                    <i class="fas fa-image fa-2x mb-2"></i>
+                    <div>{{ .Section | title }}</div>
+                </div>
+            </div>
+            <div class="category-badge">{{ .Section | title }}</div>
+        </div>
+        {{ end }}
+        
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">
+                <a href="{{ .Permalink }}" class="text-decoration-none">{{ .Title }}</a>
+            </h5>
+            
+            {{ if .Description }}
+            <p class="card-text">{{ .Description | truncate 120 }}</p>
+            {{ else }}
+            <p class="card-text">{{ .Summary | truncate 120 }}</p>
+            {{ end }}
+            
+            <div class="article-meta mt-auto">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="author-info">
+                        {{ if .Params.author }}
+                        <a href="/authors/{{ .Params.author | urlize }}/" class="author-link">
+                            <i class="fas fa-user-circle"></i> {{ .Params.author }}
+                        </a>
+                        {{ else }}
+                        <span class="author-link"><i class="fas fa-user-circle"></i> 오승희</span>
+                        {{ end }}
+                    </div>
+                    <small class="text-muted">
+                        <i class="fas fa-clock"></i>
+                        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                            {{ .Date.Format "1월 2일" }}
+                        </time>
+                    </small>
+                </div>
+                
+                {{ if .Params.tags }}
+                <div class="article-tags mt-2">
+                    {{ range first 3 .Params.tags }}
+                    <span class="badge bg-light text-dark">#{{ . }}</span>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</article>

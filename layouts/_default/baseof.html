@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <meta name="theme-color" content="#dc3545">
+    
+    <!-- SEO Meta Tags -->
+    <title>{{ if .IsHome }}앤포이즈{{ else }}{{ .Title }} - 앤포이즈{{ end }}</title>
+    <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="keywords" content="{{ if .Params.tags }}{{ delimit .Params.tags ", " }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
+    <meta name="author" content="{{ if .Params.author }}{{ .Params.author }}{{ else }}오승희{{ end }}">
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="DgRhGA841ecDQx-5gFFOhK_jCpBEFT2jQLTdviqBcMo" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:site_name" content="앤포이즈">
+    {{ $image := "" }}
+    {{ if .Params.thumbnail }}
+        {{ $image = .Params.thumbnail }}
+    {{ else if .Params.image }}
+        {{ $image = .Params.image }}
+    {{ else if .Params.featured_image }}
+        {{ $image = .Params.featured_image }}
+    {{ else if .Params.images }}
+        {{ $image = index .Params.images 0 }}
+    {{ end }}
+    {{ if $image }}
+    <meta property="og:image" content="{{ $image | absURL }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ .Title }}">
+    {{ end }}
+    
+    <!-- Google Discover 최적화 -->
+    {{ if and .IsPage $image }}
+    <meta name="thumbnail" content="{{ $image | absURL }}">
+    <meta name="image" content="{{ $image | absURL }}">
+    <link rel="image_src" href="{{ $image | absURL }}">
+    {{ end }}
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    {{ if $image }}
+    <meta name="twitter:image" content="{{ $image | absURL }}">
+    <meta name="twitter:image:alt" content="{{ .Title }}">
+    {{ end }}
+    
+    <!-- Article Meta (for posts) -->
+    {{ if .IsPage }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
+    <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}">
+    {{ if .Params.author }}
+    <meta property="article:author" content="{{ .Params.author }}">
+    {{ end }}
+    {{ if .Params.categories }}
+    {{ range .Params.categories }}
+    <meta property="article:section" content="{{ . }}">
+    {{ end }}
+    {{ end }}
+    {{ if .Params.tags }}
+    {{ range .Params.tags }}
+    <meta property="article:tag" content="{{ . }}">
+    {{ end }}
+    {{ end }}
+    {{ end }}
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ .Permalink }}">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "/index.xml" | absURL }}">
+    
+    <!-- JSON-LD Structured Data -->
+    {{ if .IsPage }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "{{ .Title }}",
+        "description": "{{ if .Description }}{{ .Description }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}",
+        "url": "{{ .Permalink }}",
+        "datePublished": "{{ .Date.Format "2006-01-02T15:04:05-07:00" }}",
+        "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ if .Params.author }}{{ .Params.author }}{{ else }}오승희{{ end }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "앤포이즈",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ "/images/logo.png" | absURL }}",
+                "width": 300,
+                "height": 60
+            }
+        },
+        {{ if $image }}
+        "image": {
+            "@type": "ImageObject",
+            "url": "{{ $image | absURL }}",
+            "width": 1200,
+            "height": 630,
+            "caption": "{{ .Title }}"
+        },
+        "thumbnailUrl": "{{ $image | absURL }}",
+        {{ end }}
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ .Permalink }}"
+        },
+        {{ if .Params.categories }}
+        "articleSection": "{{ index .Params.categories 0 }}",
+        {{ end }}
+        {{ if .Params.tags }}
+        "keywords": "{{ delimit .Params.tags ", " }}",
+        {{ end }}
+        "isAccessibleForFree": true,
+        "hasPart": {
+            "@type": "WebPageElement",
+            "isAccessibleForFree": true,
+            "cssSelector": ".article-content"
+        }
+    }
+    </script>
+    {{ else if .IsHome }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ .Site.Title }}",
+        "description": "{{ .Site.Params.description }}",
+        "url": "{{ .Site.BaseURL }}",
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ .Site.Title }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ "/images/logo.png" | absURL }}",
+                "width": 300,
+                "height": 60
+            }
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ .Site.BaseURL }}/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    {{ end }}
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
+         crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-6110235592475603",
+            enable_page_level_ads: true,
+            overlays: {bottom: true},
+            ads: {
+                // 텍스트 내 광고 - 자동 배치로 재활성화
+                text: {
+                    enabled: true,
+                    frequency: 2,  // 2번째 문단마다 광고 표시 (더 자주)
+                    minimum_words_between_ads: 100  // 최소 단어 수를 낮춤
+                },
+                // 인피드 광고 (기사 목록형 광고)
+                infeed: {
+                    enabled: true
+                },
+                // 사이드바 광고 설정  
+                sidebar: {
+                    enabled: true
+                },
+                // 앵커 광고 설정 - 모바일에서만 활성화
+                anchor: {
+                    enabled: true,
+                    mobile_only: true  // 모바일에서만 표시
+                },
+                // 비그네트 광고 (전면 광고) - 비활성화
+                vignette: {
+                    enabled: false
+                }
+            }
+        });
+    </script>
+    
+    <!-- DNS Prefetch for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Critical CSS (Inline for faster rendering) -->
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #ffffff;
+            font-display: swap;
+        }
+        
+        .main-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1;
+            padding: 1rem 0;
+        }
+        
+        /* Critical header styles */
+        .header-main {
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            background: white;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #000000 !important;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* Image optimization */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Loading animation */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Hide non-critical content initially */
+        .defer-load {
+            display: none;
+        }
+    </style>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Load minimal Bootstrap CSS asynchronously -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"></noscript>
+    
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- Load custom CSS asynchronously -->
+    <link rel="preload" href="{{ "/css/style.css" | relURL }}?v={{ now.Unix }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ "/css/style.css" | relURL }}?v={{ now.Unix }}"></noscript>
+</head>
+<body>
+    <div class="main-wrapper">
+        {{ partial "header.html" . }}
+        
+        <main class="loading">
+            {{ block "main" . }}{{ end }}
+        </main>
+        
+        {{ partial "footer.html" . }}
+    </div>
+    
+    <!-- JavaScript loaded after page content -->
+    <script>
+        // Critical JavaScript for immediate functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const main = document.querySelector('main');
+            if (main) {
+                main.classList.add('loading');
+            }
+            
+            // Show deferred content
+            setTimeout(() => {
+                document.querySelectorAll('.defer-load').forEach(el => {
+                    el.style.display = 'block';
+                });
+            }, 100);
+        });
+        
+        // Efficient lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+            });
+            
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+        
+        // Load non-critical scripts asynchronously
+        function loadScript(src) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+            document.head.appendChild(script);
+        }
+        
+        // Load Bootstrap JS after page load
+        window.addEventListener('load', function() {
+            loadScript('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js');
+            
+            // Load main.js if it exists
+            loadScript('{{ "/js/main.js" | relURL }}');
+        });
+        
+
+    </script>
+    
+    <!-- Load Google Fonts asynchronously -->
+    <script>
+        // Load Google Fonts without blocking render
+        const fontLink = document.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap';
+        fontLink.rel = 'stylesheet';
+        fontLink.media = 'print';
+        fontLink.onload = function() {
+            this.media = 'all';
+        };
+        document.head.appendChild(fontLink);
+    </script>
+</body>
+</html>
