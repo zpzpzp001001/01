@@ -5,8 +5,12 @@ https://netfilesnext.com/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  # Force cache bypass for critical updates
-  Cache-Control: public, max-age=0, must-revalidate, proxy-revalidate
+  # Force cache bypass for critical updates - site rebranding
+  Cache-Control: no-cache, no-store, must-revalidate, proxy-revalidate
+  Pragma: no-cache
+  Expires: 0
+  Edge-Cache-Tag: site-rebrand
+  CF-Cache-Tag: rebrand-2025
   # Core Web Vitals 최적화
   Link: <https://fonts.googleapis.com>; rel=preconnect
   Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
