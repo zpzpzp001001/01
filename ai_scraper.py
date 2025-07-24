@@ -430,7 +430,7 @@ def rewrite_with_ai(original_content, title, api_key, api_type="openai"):
 원본 기사:
 {original_content}
 
-**앤포이즈 자동차 경제 전문매체 스타일 적용:**
+**넷파일즈 자동차 경제 전문매체 스타일 적용:**
 - 자동차 산업과 경제 분석에 특화된 전문적 시각
 - 35-60대 독자층을 위한 신뢰할 수 있는 정보 제공
 - 자동차 기술, 시장 동향, 경제적 영향에 집중
@@ -456,13 +456,13 @@ def rewrite_with_ai(original_content, title, api_key, api_type="openai"):
 2. 도입 본문: 2-3개 문단 (H2 없이 바로 본문으로 시작)
 3. H2 소제목 + 본문 반복
 
-**최종 목표: 앤포이즈 자동차 경제 전문매체의 품격 있는 기사로 재탄생**
+**최종 목표: 넷파일즈 자동차 경제 전문매체의 품격 있는 기사로 재탄생**
 """
                 
                 response = client.chat.completions.create(
                     model="gpt-4.1",  # gpt-4.1로 변경
                     messages=[
-                        {"role": "system", "content": "당신은 앤포이즈 자동차 경제 전문매체의 전문 기자입니다. 자동차 산업과 경제 분석에 특화된 고품질 기사를 작성하는 전문가입니다. 35-60대 독자층을 위한 신뢰할 수 있고 전문적인 콘텐츠를 제공합니다."},
+                        {"role": "system", "content": "당신은 넷파일즈 자동차 경제 전문매체의 전문 기자입니다. 자동차 산업과 경제 분석에 특화된 고품질 기사를 작성하는 전문가입니다. 35-60대 독자층을 위한 신뢰할 수 있고 전문적인 콘텐츠를 제공합니다."},
                         {"role": "user", "content": prompt}
                     ],
                     max_tokens=2000,
@@ -499,7 +499,7 @@ def generate_ai_tags(title, content, existing_tags, api_key, api_type="openai"):
                 client = OpenAI(api_key=api_key)
                 
                 prompt = f"""
-기사 내용을 분석하여 **자동차 경제 전문매체 앤포이즈**에 적합한 태그 2개를 생성해주세요.
+기사 내용을 분석하여 **자동차 경제 전문매체 넷파일즈**에 적합한 태그 2개를 생성해주세요.
 
 제목: {title}
 내용: {content[:500]}...
@@ -521,7 +521,7 @@ JSON 배열로만 응답: ["태그1", "태그2"]
                 response = client.chat.completions.create(
                     model="gpt-4.1",  # gpt-4.1로 변경
                     messages=[
-                        {"role": "system", "content": "당신은 앤포이즈 자동차 경제 전문매체의 SEO 전문가입니다. 자동차 산업과 경제에 특화된 전문적이고 효과적인 태그를 생성합니다."},
+                        {"role": "system", "content": "당신은 넷파일즈 자동차 경제 전문매체의 SEO 전문가입니다. 자동차 산업과 경제에 특화된 전문적이고 효과적인 태그를 생성합니다."},
                         {"role": "user", "content": prompt}
                     ],
                     max_tokens=100,
@@ -596,7 +596,7 @@ def rewrite_title_with_ai(original_title, content, api_key, api_type="openai"):
             response = client.chat.completions.create(
                 model="gpt-4.1",
                 messages=[
-                    {"role": "system", "content": "당신은 앤포이즈 자동차 경제 전문매체의 제목 작성 전문가입니다. 원본 제목의 정확한 문법과 구조를 100% 유지하면서 내용만 변경하는 것이 핵심입니다."},
+                    {"role": "system", "content": "당신은 넷파일즈 자동차 경제 전문매체의 제목 작성 전문가입니다. 원본 제목의 정확한 문법과 구조를 100% 유지하면서 내용만 변경하는 것이 핵심입니다."},
                     {"role": "user", "content": prompt}
                 ],
                 max_tokens=200,
@@ -642,7 +642,7 @@ def extract_content_from_url(url):
             return None
         title = title_elem.get_text().strip()
         
-        # 메타 정보 추출 - 앤포이즈 전속 기자 오승희로 설정
+        # 메타 정보 추출 - 넷파일즈 전속 기자 오승희로 설정
         author = "오승희"
         
         # 태그 추출
