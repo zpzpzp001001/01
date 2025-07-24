@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeEnhancedUpNext();
     // 접근성 향상
     initializeAccessibility();
+    // H5, H2 태그 다음에 광고 삽입
+    initializeContentAds();
 });
 
 // Reading Progress Bar
@@ -890,3 +892,82 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
+
+// H5, H2 태그 다음에 애드센스 광고 삽입
+function initializeContentAds() {
+    // 기사 본문 컨테이너 확인
+    const articleContent = document.querySelector('.article-body, .article-content, #article-content');
+    if (!articleContent) return;
+    
+    // H5와 H2 태그 찾기
+    const headings = articleContent.querySelectorAll('h5, h2');
+    let adCount = 0;
+    const maxAds = 5; // 최대 광고 개수 제한
+    
+    headings.forEach((heading, index) => {
+        // 광고 개수 제한
+        if (adCount >= maxAds) return;
+        
+        // 첫 번째 H5나 H2는 건너뛰기 (제목 바로 다음은 광고 없이)
+        if (index === 0) return;
+        
+        // H5와 H2만 처리
+        if (heading.tagName.toLowerCase() === 'h5' || heading.tagName.toLowerCase() === 'h2') {
+            insertAdAfterElement(heading, adCount);
+            adCount++;
+        }
+    });
+}
+
+// 요소 다음에 광고 삽입
+function insertAdAfterElement(element, adIndex) {
+    // 광고 컨테이너 생성
+    const adContainer = document.createElement('div');
+    adContainer.className = 'content-ad-container';
+    adContainer.style.cssText = `
+        margin: 40px 0;
+        text-align: center;
+        clear: both;
+    `;
+    
+    // 광고 라벨 추가
+    const adLabel = document.createElement('div');
+    adLabel.className = 'ad-label';
+    adLabel.textContent = '광고';
+    adLabel.style.cssText = `
+        font-size: 11px;
+        color: #999;
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: normal;
+        opacity: 0.8;
+    `;
+    
+    // 애드센스 광고 요소 생성
+    const adElement = document.createElement('ins');
+    adElement.className = 'adsbygoogle';
+    adElement.setAttribute('data-ad-client', 'ca-pub-6110235592475603');
+    adElement.setAttribute('data-ad-format', 'auto');
+    adElement.setAttribute('data-full-width-responsive', 'true');
+    adElement.style.cssText = `
+        display: block;
+        margin: 20px auto;
+        max-width: 600px;
+        width: 100%;
+    `;
+    
+    // 컨테이너에 요소들 추가
+    adContainer.appendChild(adLabel);
+    adContainer.appendChild(adElement);
+    
+    // 해딩 요소 다음에 광고 삽입
+    element.parentNode.insertBefore(adContainer, element.nextSibling);
+    
+    // 애드센스 광고 로드
+    try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+        console.log('AdSense loading error:', e);
+    }
+}
+
