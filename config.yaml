@@ -48,7 +48,7 @@ taxonomies:
   author: authors
 
 outputs:
-  home: ['HTML', 'RSS', 'JSON', 'SitemapGeneral', 'SitemapNews', 'SitemapAuthors', 'SitemapPages', 'SitemapLocal', 'SitemapVideo', 'PostSitemap']
+  home: ['HTML', 'RSS', 'JSON', 'SitemapGeneral', 'SitemapNews', 'SitemapAuthors', 'SitemapPages', 'SitemapLocal', 'PostSitemap']
   page: ['HTML']
   section: ['HTML', 'RSS']
 
@@ -76,11 +76,6 @@ outputFormats:
   SitemapLocal:
     mediaType: 'application/xml'
     baseName: 'sitemap-local'
-    isPlainText: true
-    notAlternative: true
-  SitemapVideo:
-    mediaType: 'application/xml'
-    baseName: 'sitemap-video'
     isPlainText: true
     notAlternative: true
   PostSitemap:
