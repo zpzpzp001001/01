@@ -4119,6 +4119,24 @@ body * {
     color: #212529;
 }
 
+/* AdSense 광고 중앙 정렬 및 여백 설정 */
+.article-content ins[class*="adsbygoogle"] {
+    display: block !important;
+    text-align: center !important;
+    margin: 2rem auto !important;
+    max-width: 100% !important;
+    clear: both !important;
+}
+
+/* 기사 본문 내 모든 광고 중앙 정렬 */
+.article-body ins[class*="adsbygoogle"] {
+    display: block !important;
+    text-align: center !important;
+    margin: 2rem auto !important;
+    max-width: 100% !important;
+    clear: both !important;
+}
+
 .article-content h2 {
     font-size: 1.75rem;
     font-weight: 600;
