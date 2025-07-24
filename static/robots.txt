@@ -5,6 +5,9 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 
+# Block video sitemap completely
+Disallow: /sitemap-video.xml
+
 # Sitemap URLs for netfilesnext.com
 Sitemap: https://netfilesnext.com/sitemap.xml
 Sitemap: https://netfilesnext.com/sitemap-general.xml
