@@ -29,4 +29,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=netfilesnext --compatibility-date=2024-01-01 --force
+          command: pages deploy public --project-name=netfilesnext --compatibility-date=2024-01-01 --production
