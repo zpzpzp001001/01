@@ -1,3 +1,19 @@
+# Domain-specific headers for netfilesnext.com
+https://netfilesnext.com/*
+  X-Robots-Tag: index, follow
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  # Force cache bypass for critical updates
+  Cache-Control: public, max-age=0, must-revalidate, proxy-revalidate
+  # Core Web Vitals 최적화
+  Link: <https://fonts.googleapis.com>; rel=preconnect
+  Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
+  Link: <https://cdn.jsdelivr.net>; rel=preconnect
+  Link: <https://cdnjs.cloudflare.com>; rel=preconnect
+
+# Default headers for all other domains/paths
 /*
   X-Robots-Tag: index, follow
   X-Frame-Options: DENY
@@ -46,8 +62,26 @@
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
 
+# Domain-specific sitemap headers for netfilesnext.com
+https://netfilesnext.com/sitemap.xml
+  Cache-Control: no-cache, no-store, must-revalidate, proxy-revalidate
+  Pragma: no-cache
+  Expires: 0
+  
+https://netfilesnext.com/sitemap-*.xml
+  Cache-Control: no-cache, no-store, must-revalidate, proxy-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Sitemap files - minimal caching to ensure updates are reflected quickly
 /sitemap.xml
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=300, must-revalidate
+  
+/sitemap-*.xml
+  Cache-Control: public, max-age=300, must-revalidate
+  
+/post-sitemap*.xml
+  Cache-Control: public, max-age=300, must-revalidate
 
 /robots.txt
   Cache-Control: public, max-age=3600
