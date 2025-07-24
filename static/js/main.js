@@ -872,6 +872,8 @@ window.addEventListener('load', function() {
     setTimeout(() => {
         optimizeImageLoading();
         optimizeLayout();
+        // 마크다운 렌더링 완료 후 광고 재시도
+        insertContentAds();
     }, 100);
 });
 
@@ -895,12 +897,27 @@ function debounce(func, wait) {
 
 // H5, H2 태그 다음에 애드센스 광고 삽입
 function initializeContentAds() {
-    // 기사 본문 컨테이너 확인
-    const articleContent = document.querySelector('.article-body, .article-content, #article-content');
-    if (!articleContent) return;
+    // DOM이 완전히 로드된 후 약간의 지연을 두고 실행
+    setTimeout(() => {
+        insertContentAds();
+    }, 500);
+}
+
+function insertContentAds() {
+    // 기사 본문 컨테이너 확인 (여러 선택자 시도)
+    const articleContent = document.querySelector('.article-body, .article-content, #article-content, .content, .post-content');
     
-    // H5와 H2 태그 찾기
-    const headings = articleContent.querySelectorAll('h5, h2');
+    if (!articleContent) {
+        console.log('Article content container not found');
+        return;
+    }
+    
+    console.log('Found article content container:', articleContent);
+    
+    // H5와 H2 태그 찾기 (마크다운에서 렌더링된 HTML)
+    const headings = articleContent.querySelectorAll('h5, h2, h3, h4');
+    console.log('Found headings:', headings.length);
+    
     let adCount = 0;
     const maxAds = 5; // 최대 광고 개수 제한
     
@@ -908,15 +925,18 @@ function initializeContentAds() {
         // 광고 개수 제한
         if (adCount >= maxAds) return;
         
-        // 첫 번째 H5나 H2는 건너뛰기 (제목 바로 다음은 광고 없이)
+        // 첫 번째 헤딩은 건너뛰기 (제목 바로 다음은 광고 없이)
         if (index === 0) return;
         
-        // H5와 H2만 처리
-        if (heading.tagName.toLowerCase() === 'h5' || heading.tagName.toLowerCase() === 'h2') {
+        // 2번째 헤딩부터는 광고 삽입 (더 많은 광고 노출)
+        if (index >= 1) {
+            console.log('Inserting ad after heading:', heading.textContent);
             insertAdAfterElement(heading, adCount);
             adCount++;
         }
     });
+    
+    console.log('Total ads inserted:', adCount);
 }
 
 // 요소 다음에 광고 삽입
