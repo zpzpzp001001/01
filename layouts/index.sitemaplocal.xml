@@ -29,28 +29,6 @@
         <priority>1.0</priority>
     </url>
 
-    <!-- Regional Economic News -->
-    {{- range where .Site.RegularPages "Section" "economy" -}}
-        {{- if not .Params.private -}}
-    <url>
-        <loc>{{ .Permalink | safeURL }}</loc>
-        <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-        {{- end -}}
-    {{- end -}}
-
-    <!-- Automotive News -->
-    {{- range where .Site.RegularPages "Section" "automotive" -}}
-        {{- if not .Params.private -}}
-    <url>
-        <loc>{{ .Permalink | safeURL }}</loc>
-        <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-        {{- end -}}
-    {{- end -}}
+    <!-- Local business information pages only -->
 
 </urlset> 
