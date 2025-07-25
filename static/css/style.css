@@ -2770,16 +2770,15 @@ img {
     margin: 1.5rem 0;
 }
 
-/* 모바일에서 기사 이미지 전체 너비 - 안전한 방법 */
+/* 모바일에서도 기본 이미지 스타일 유지 (Hugo 표준) */
 @media (max-width: 767.98px) {
     .article-content img:not(.ad-image) {
-        width: calc(100% + 2rem) !important;
-        max-width: calc(100% + 2rem) !important;
-        margin-left: -1rem !important;
-        margin-right: -1rem !important;
-        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 8px !important;
         display: block;
-        position: relative;
+        margin: 1.5rem auto;
     }
     
     /* 모바일에서도 애드센스 광고 보호 - 이미지 스타일 완전 차단 */
@@ -2798,13 +2797,13 @@ img {
         box-sizing: border-box !important;
     }
     
-    /* 작은 모바일에서는 더 작은 여백 */
+    /* 작은 모바일에서도 기본 스타일 유지 */
     @media (max-width: 576px) {
         .article-content img:not(.ad-image) {
-            width: calc(100% + 1.5rem) !important;
-            max-width: calc(100% + 1.5rem) !important;
-            margin-left: -0.75rem !important;
-            margin-right: -0.75rem !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            border-radius: 4px !important;
+            margin: 1rem auto;
         }
         
         /* 작은 모바일에서도 애드센스는 전체 너비 유지 */
