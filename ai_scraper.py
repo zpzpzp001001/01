@@ -660,11 +660,13 @@ def extract_content_from_url(url):
         if not content_elem:
             return None
         
-        # 광고 제거
+        # repoad 광고만 제거, 애드센스는 보존
         for ad in content_elem.find_all('div', class_='repoad'):
             ad.decompose()
-        for ad in content_elem.find_all('ins', class_='adsbygoogle'):
-            ad.decompose()
+        
+        # 애드센스 광고는 제거하지 않고 보존 (CSS에서 보호됨)
+        # for ad in content_elem.find_all('ins', class_='adsbygoogle'):
+        #     ad.decompose()
         
         # 공유 버튼 제거
         for share in content_elem.find_all('ul', class_='share-list'):
