@@ -2781,20 +2781,18 @@ img {
         margin: 1.5rem auto;
     }
     
-    /* 모바일에서도 애드센스 광고 보호 - 이미지 스타일 완전 차단 */
+    /* 모바일에서 애드센스 광고 최적화 */
     .article-content ins[class*="adsbygoogle"],
-    .article-content .adsbygoogle,
-    .article-content .adsbygoogle * {
+    .article-content .adsbygoogle {
+        display: block !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        position: static !important;
-        transform: none !important;
-        left: auto !important;
-        right: auto !important;
-        z-index: 10 !important;
-        box-sizing: border-box !important;
+        margin: 1.5rem auto !important;
+        padding: 0 !important;
+        text-align: center !important;
+        clear: both !important;
+        overflow: visible !important;
+        min-height: 250px !important;
     }
     
     /* 작은 모바일에서도 기본 스타일 유지 */
@@ -2806,14 +2804,13 @@ img {
             margin: 1rem auto;
         }
         
-        /* 작은 모바일에서도 애드센스는 전체 너비 유지 */
+        /* 작은 모바일에서 애드센스 광고 최적화 */
         .article-content ins[class*="adsbygoogle"],
-        .article-content .adsbygoogle,
-        .article-content .adsbygoogle * {
-            max-width: 100% !important;
+        .article-content .adsbygoogle {
             width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
+            max-width: 100% !important;
+            margin: 1rem auto !important;
+            min-height: 200px !important;
         }
     }
 }
@@ -4145,51 +4142,67 @@ body * {
     color: #212529;
 }
 
-/* AdSense 광고 중앙 정렬 및 여백 설정 - 이미지 스타일 영향 완전 차단 */
+/* AdSense 광고 최적화된 스타일 */
 .article-content ins[class*="adsbygoogle"],
-.article-content .adsbygoogle,
-.article-content .adsbygoogle * {
+.article-content .adsbygoogle {
     display: block !important;
     text-align: center !important;
-    margin: 2rem auto 3rem auto !important;
-    padding: 1rem 0 !important;
+    margin: 2rem auto !important;
+    padding: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
     clear: both !important;
-    position: static !important;
-    z-index: 999 !important;
-    box-sizing: border-box !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    float: none !important;
     overflow: visible !important;
+    min-height: 280px !important;
+    background: transparent !important;
 }
 
-/* 애드센스 컨테이너 격리 및 H2와의 간격 확보 */
+/* 애드센스 컨테이너 간격 최적화 */
 .article-content ins[class*="adsbygoogle"] {
-    isolation: isolate !important;
-    margin-bottom: 3rem !important;
+    margin-bottom: 2rem !important;
 }
 
-/* H2 소제목과 애드센스 광고 간격 확보 */
+/* H2 소제목과 애드센스 광고 간격 최적화 */
 .article-content h2 {
-    margin-top: 3rem !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
     clear: both !important;
 }
 
-/* 애드센스 광고 다음에 오는 H2는 추가 여백 */
+/* 애드센스 광고 다음에 오는 H2는 적절한 여백 */
+.article-content ins[class*="adsbygoogle"] + h2,
+.article-content .adsbygoogle + h2,
 .article-content ins[class*="adsbygoogle"] + * + h2,
 .article-content .adsbygoogle + * + h2 {
-    margin-top: 4rem !important;
+    margin-top: 2rem !important;
 }
 
-/* 기사 본문 내 모든 광고 중앙 정렬 */
-
+/* 기사 본문 내 모든 광고 중앙 정렬 및 반응형 최적화 */
 .article-body ins[class*="adsbygoogle"] {
     display: block;
-    margin: 2rem auto; /* Center the ad horizontally */
+    margin: 2rem auto !important;
     text-align: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 250px !important;
+}
+
+/* 태블릿 화면에서 광고 최적화 */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .article-content ins[class*="adsbygoogle"],
+    .article-content .adsbygoogle {
+        min-height: 300px !important;
+        margin: 2.5rem auto !important;
+    }
+}
+
+/* 데스크톱에서 광고 최적화 */
+@media (min-width: 1025px) {
+    .article-content ins[class*="adsbygoogle"],
+    .article-content .adsbygoogle {
+        min-height: 320px !important;
+        margin: 3rem auto !important;
+    }
 }
 
 .article-content h2 {

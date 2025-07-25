@@ -175,19 +175,32 @@
             enable_page_level_ads: true,
             overlays: {bottom: true},
             ads: {
-                // 텍스트 내 광고 - 자동 배치
+                // 텍스트 내 광고 - 자동 배치 최적화
                 text: {
                     enabled: true,
-                    frequency: 2,
-                    minimum_words_between_ads: 100
+                    frequency: 1,
+                    minimum_words_between_ads: 150,
+                    responsive: {
+                        mobile: {
+                            size: 'auto'
+                        },
+                        tablet: {
+                            size: 'auto'
+                        },
+                        desktop: {
+                            size: 'auto'
+                        }
+                    }
                 },
                 // 인피드 광고 (기사 목록형 광고)
                 infeed: {
-                    enabled: true
+                    enabled: true,
+                    responsive: true
                 },
                 // 사이드바 광고 설정  
                 sidebar: {
-                    enabled: true
+                    enabled: true,
+                    responsive: true
                 },
                 // 앵커 광고 설정 - 모바일에서만 활성화
                 anchor: {

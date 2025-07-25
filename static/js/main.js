@@ -744,7 +744,7 @@ function optimizeLayout() {
     });
 }
 
-// 동적 콘텐츠 로딩 최적화
+// 동적 콘텐츠 및 광고 로딩 최적화
 function optimizeDynamicContent() {
     // 광고나 동적 콘텐츠 영역에 플레이스홀더 적용
     const dynamicElements = document.querySelectorAll('.ad-container, .dynamic-content, [data-dynamic]');
@@ -754,6 +754,35 @@ function optimizeDynamicContent() {
             element.style.backgroundColor = '#f8f9fa';
             element.style.border = '1px dashed #dee2e6';
         }
+    });
+    
+    // AdSense 광고 최적화
+    const adsenseElements = document.querySelectorAll('ins[class*="adsbygoogle"]');
+    adsenseElements.forEach(ad => {
+        // 광고 컨테이너 최적화
+        ad.style.display = 'block';
+        ad.style.textAlign = 'center';
+        ad.style.margin = '2rem auto';
+        ad.style.width = '100%';
+        ad.style.maxWidth = '100%';
+        ad.style.overflow = 'visible';
+        
+        // 반응형 최적화
+        const updateAdSize = () => {
+            if (window.innerWidth <= 576) {
+                ad.style.minHeight = '200px';
+                ad.style.margin = '1rem auto';
+            } else if (window.innerWidth <= 1024) {
+                ad.style.minHeight = '300px';
+                ad.style.margin = '2.5rem auto';
+            } else {
+                ad.style.minHeight = '320px';
+                ad.style.margin = '3rem auto';
+            }
+        };
+        
+        updateAdSize();
+        window.addEventListener('resize', updateAdSize);
     });
 }
 
@@ -871,9 +900,30 @@ window.addEventListener('load', function() {
     setTimeout(() => {
         optimizeImageLoading();
         optimizeLayout();
-        // AdSense 삽입 제거됨
+        optimizeAdSenseDisplay();
     }, 100);
 });
+
+// AdSense 광고 표시 최적화
+function optimizeAdSenseDisplay() {
+    const ads = document.querySelectorAll('ins[class*="adsbygoogle"]');
+    ads.forEach(ad => {
+        // 광고가 로드되었는지 확인
+        if (ad.getAttribute('data-ad-status') === 'filled' || ad.innerHTML.trim() !== '') {
+            ad.style.visibility = 'visible';
+            ad.style.opacity = '1';
+            ad.style.transition = 'opacity 0.3s ease-in-out';
+        } else {
+            // 광고가 아직 로드되지 않은 경우 재시도
+            setTimeout(() => {
+                if (ad.getAttribute('data-ad-status') === 'filled' || ad.innerHTML.trim() !== '') {
+                    ad.style.visibility = 'visible';
+                    ad.style.opacity = '1';
+                }
+            }, 2000);
+        }
+    });
+}
 
 // 리사이즈 시 레이아웃 재최적화
 window.addEventListener('resize', debounce(function() {
