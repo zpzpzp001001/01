@@ -2773,16 +2773,13 @@ img {
 /* 모바일에서 기사 이미지 전체 너비 - 안전한 방법 */
 @media (max-width: 767.98px) {
     .article-content img:not(.ad-image) {
-        width: calc(100vw - 2rem) !important;
-        max-width: calc(100vw - 2rem) !important;
-        margin-left: calc(-50vw + 50%) !important;
-        margin-right: calc(-50vw + 50%) !important;
+        width: calc(100% + 2rem) !important;
+        max-width: calc(100% + 2rem) !important;
+        margin-left: -1rem !important;
+        margin-right: -1rem !important;
         border-radius: 0 !important;
         display: block;
         position: relative;
-        left: 50%;
-        right: 50%;
-        transform: translateX(-50%);
     }
     
     /* 모바일에서도 애드센스 광고 보호 - 이미지 스타일 완전 차단 */
@@ -2804,11 +2801,10 @@ img {
     /* 작은 모바일에서는 더 작은 여백 */
     @media (max-width: 576px) {
         .article-content img:not(.ad-image) {
-            width: calc(100vw - 1.5rem) !important;
-            max-width: calc(100vw - 1.5rem) !important;
-            margin-left: calc(-50vw + 50%) !important;
-            margin-right: calc(-50vw + 50%) !important;
-            transform: translateX(-50%);
+            width: calc(100% + 1.5rem) !important;
+            max-width: calc(100% + 1.5rem) !important;
+            margin-left: -0.75rem !important;
+            margin-right: -0.75rem !important;
         }
     }
 }
@@ -4146,7 +4142,7 @@ body * {
 .article-content .adsbygoogle * {
     display: block !important;
     text-align: center !important;
-    margin: 2rem auto !important;
+    margin: 2rem auto 3rem auto !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 1rem 0 !important;
@@ -4163,9 +4159,22 @@ body * {
     overflow: visible !important;
 }
 
-/* 애드센스 컨테이너 격리 */
+/* 애드센스 컨테이너 격리 및 H2와의 간격 확보 */
 .article-content ins[class*="adsbygoogle"] {
     isolation: isolate !important;
+    margin-bottom: 3rem !important;
+}
+
+/* H2 소제목과 애드센스 광고 간격 확보 */
+.article-content h2 {
+    margin-top: 3rem !important;
+    clear: both !important;
+}
+
+/* 애드센스 광고 다음에 오는 H2는 추가 여백 */
+.article-content ins[class*="adsbygoogle"] + * + h2,
+.article-content .adsbygoogle + * + h2 {
+    margin-top: 4rem !important;
 }
 
 /* 기사 본문 내 모든 광고 중앙 정렬 */
