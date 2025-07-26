@@ -5,6 +5,24 @@
         {{ $randomArticles := $articles | shuffle }}
         {{ $sortedArticles := $randomArticles.ByDate.Reverse }}
         
+        <!-- 상단 배너 광고 (메인 헤드라인 위) -->
+        <section class="top-ad-section mb-4">
+            <div class="ad-container text-center">
+                <div class="ad-label text-muted small mb-2">광고</div>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
+                     crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6110235592475603"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+        
         <!-- 메인 헤드라인 -->
         {{ if gt (len $sortedArticles) 0 }}
         <section class="headline-section mb-5">
@@ -50,12 +68,30 @@
         </section>
         {{ end }}
 
-        <!-- 최신 자동차 뉴스 (2x5 그리드) -->
+        <!-- 중간 광고 (첫 번째 기사 그룹 이후) -->
+        <section class="middle-ad-section mb-5">
+            <div class="ad-container text-center">
+                <div class="ad-label text-muted small mb-2">광고</div>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
+                     crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6110235592475603"
+                     data-ad-slot="0987654321"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+
+        <!-- 최신 자동차 뉴스 (첫 번째 그룹: 4개) -->
         {{ if gt (len $sortedArticles) 1 }}
         <section class="latest-news-section mb-5">
             <h2 class="h4 mb-4 pb-2 border-bottom text-center">최신 자동차 뉴스</h2>
             <div class="row g-4">
-                {{ range first 10 (after 1 $sortedArticles) }}
+                {{ range first 4 (after 1 $sortedArticles) }}
                 <div class="col-md-6">
                     <article class="card h-100 shadow-sm border-0 news-card">
                         <a href="{{ .RelPermalink }}" class="text-decoration-none">
@@ -89,14 +125,133 @@
                 </div>
                 {{ end }}
             </div>
-            
-            <!-- 더보기 버튼 (가운데 정렬) -->
-            <div class="text-center mt-5">
-                <a href="/automotive/" class="btn btn-danger btn-lg px-5 py-3">
-                    <i class="fas fa-plus me-2"></i>더보기
-                </a>
+        </section>
+
+        <!-- 인피드 광고 (기사 목록 중간에 삽입) -->
+        <section class="infeed-ad-section mb-5">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm border-0 ad-card">
+                        <div class="card-body text-center d-flex flex-column justify-content-center" style="min-height: 300px;">
+                            <div class="ad-label text-muted small mb-3">광고</div>
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
+                                 crossorigin="anonymous"></script>
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-6110235592475603"
+                                 data-ad-slot="5555555555"
+                                 data-ad-format="fluid"
+                                 data-ad-layout-key="-gw-3+1f-3d+2z"></ins>
+                            <script>
+                                 (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 추가 기사 1개 -->
+                {{ if gt (len $sortedArticles) 5 }}
+                {{ $article := index $sortedArticles 5 }}
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm border-0 news-card">
+                        <a href="{{ $article.RelPermalink }}" class="text-decoration-none">
+                            <div class="card-img-top position-relative" style="height: 250px; overflow: hidden;">
+                                {{ if $article.Params.images }}
+                                <img src="{{ index $article.Params.images 0 }}" 
+                                     alt="{{ $article.Title }}" 
+                                     class="img-fluid w-100 h-100" 
+                                     style="object-fit: cover;">
+                                {{ else }}
+                                <div class="no-image-placeholder d-flex align-items-center justify-content-center bg-light h-100">
+                                    <i class="fas fa-car fa-3x text-muted"></i>
+                                </div>
+                                {{ end }}
+                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">
+                                    자동차
+                                </span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="h5 card-title text-dark mb-3" style="line-height: 1.4;">{{ $article.Title | truncate 80 }}</h3>
+                                <p class="card-text text-muted small mb-3 flex-grow-1">{{ $article.Summary | plainify | truncate 120 }}</p>
+                                <div class="mt-auto">
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        {{ $article.Date.Format "01월 02일" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                {{ end }}
             </div>
         </section>
+
+        <!-- 나머지 기사들 -->
+        {{ if gt (len $sortedArticles) 6 }}
+        <section class="more-news-section mb-5">
+            <div class="row g-4">
+                {{ range first 4 (after 6 $sortedArticles) }}
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm border-0 news-card">
+                        <a href="{{ .RelPermalink }}" class="text-decoration-none">
+                            <div class="card-img-top position-relative" style="height: 250px; overflow: hidden;">
+                                {{ if .Params.images }}
+                                <img src="{{ index .Params.images 0 }}" 
+                                     alt="{{ .Title }}" 
+                                     class="img-fluid w-100 h-100" 
+                                     style="object-fit: cover;">
+                                {{ else }}
+                                <div class="no-image-placeholder d-flex align-items-center justify-content-center bg-light h-100">
+                                    <i class="fas fa-car fa-3x text-muted"></i>
+                                </div>
+                                {{ end }}
+                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">
+                                    자동차
+                                </span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="h5 card-title text-dark mb-3" style="line-height: 1.4;">{{ .Title | truncate 80 }}</h3>
+                                <p class="card-text text-muted small mb-3 flex-grow-1">{{ .Summary | plainify | truncate 120 }}</p>
+                                <div class="mt-auto">
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        {{ .Date.Format "01월 02일" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+
+        <!-- 하단 광고 (더보기 버튼 위) -->
+        <section class="bottom-ad-section mb-5">
+            <div class="ad-container text-center">
+                <div class="ad-label text-muted small mb-2">광고</div>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6110235592475603"
+                     crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6110235592475603"
+                     data-ad-slot="1111111111"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+            
+        <!-- 더보기 버튼 (가운데 정렬) -->
+        <div class="text-center mt-5">
+            <a href="/automotive/" class="btn btn-danger btn-lg px-5 py-3">
+                <i class="fas fa-plus me-2"></i>더보기
+            </a>
+        </div>
         {{ end }}
 
         <!-- 기사가 없을 때 -->
@@ -111,6 +266,43 @@
 </main>
 
 <style>
+/* AdSense 광고 최적화 스타일 */
+.ad-container {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.ad-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ad-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px dashed #dee2e6 !important;
+}
+
+.ad-card .card-body {
+    background: white;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* 인피드 광고 스타일 */
+.infeed-ad-section .ad-card {
+    transition: transform 0.3s ease;
+}
+
+.infeed-ad-section .ad-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 기존 스타일 유지 */
 .main-article-image,
 .no-image-card,
 .no-image-main {
@@ -194,23 +386,6 @@
     border-radius: 2px;
 }
 
-.section-title {
-    font-weight: bold;
-    border-bottom: 2px solid #dc3545;
-    padding-bottom: 0.5rem;
-}
-
-.news-icon {
-    padding: 1rem;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-    transition: transform 0.2s ease-in-out;
-}
-
-/* AdSense 광고 방지 CSS 제거됨 */
-
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .news-card .card-body {
@@ -226,6 +401,21 @@
         padding: 0.75rem 2rem !important;
         font-size: 0.9rem;
     }
+    
+    .ad-container {
+        margin: 1.5rem 0;
+        padding: 0.75rem;
+    }
+}
+
+/* 광고 중앙 정렬 강제 */
+.ad-container ins[class*="adsbygoogle"],
+.ad-container .adsbygoogle {
+    display: block !important;
+    text-align: center !important;
+    margin: 1rem auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 </style>
 {{ end }}
