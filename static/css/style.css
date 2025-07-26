@@ -4620,7 +4620,19 @@ ins[class*="adsbygoogle"] *,
 /* 이 규칙은 다른 모든 스타일을 무시합니다 */
 /* =========================== */
 
-/* 모든 AdSense 광고 컨테이너 강제 중앙 정렬 */
+/* 모든 AdSense 광고 컨테이너 강제 중앙 정렬 - 최강 특이성 */
+.container .row .col-lg-8 .article-content .article-body ins[class*="adsbygoogle"],
+.container .row .col-lg-8 .article-content .article-body .adsbygoogle,
+.container .row .col-lg-8 .article-content ins[class*="adsbygoogle"],
+.container .row .col-lg-8 .article-content .adsbygoogle,
+.col-lg-8 .article-content .article-body ins[class*="adsbygoogle"],
+.col-lg-8 .article-content .article-body .adsbygoogle,
+.col-lg-8 .article-content ins[class*="adsbygoogle"],
+.col-lg-8 .article-content .adsbygoogle,
+.article-content .article-body ins[class*="adsbygoogle"],
+.article-content .article-body .adsbygoogle,
+.article-content ins[class*="adsbygoogle"],
+.article-content .adsbygoogle,
 ins[class*="adsbygoogle"],
 .adsbygoogle,
 div[id*="google_ads"],
@@ -4639,6 +4651,8 @@ div[class*="google-ads"] {
     right: auto !important;
     transform: none !important;
     box-sizing: border-box !important;
+    justify-self: center !important;
+    align-self: center !important;
 }
 
 /* AdSense 내부 iframe도 중앙 정렬 */
@@ -4660,8 +4674,14 @@ div[class*="google-ads"] iframe {
     transform: none !important;
 }
 
-/* 모든 화면 크기에서 광고 중앙 정렬 보장 */
+/* 모든 화면 크기에서 광고 중앙 정렬 보장 - 최대 특이성 */
 @media screen and (min-width: 1px) {
+    .col-lg-8 .article-content .article-body ins[class*="adsbygoogle"],
+    .col-lg-8 .article-content .article-body .adsbygoogle,
+    .col-lg-8 .article-content ins[class*="adsbygoogle"],
+    .col-lg-8 .article-content .adsbygoogle,
+    .container .row .col-lg-8 ins[class*="adsbygoogle"],
+    .container .row .col-lg-8 .adsbygoogle,
     ins[class*="adsbygoogle"],
     .adsbygoogle,
     div[id*="google_ads"],
@@ -4679,6 +4699,8 @@ div[class*="google-ads"] iframe {
         left: auto !important;
         right: auto !important;
         transform: none !important;
+        justify-self: center !important;
+        align-self: center !important;
     }
     
     ins[class*="adsbygoogle"] iframe,

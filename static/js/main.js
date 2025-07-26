@@ -815,9 +815,25 @@ function optimizeDynamicContent() {
         updateAdSize();
         window.addEventListener('resize', updateAdSize);
         
-        // MutationObserver로 광고 변경 감지
+        // MutationObserver로 광고 변경 감지 및 강제 중앙 정렬
         const observer = new MutationObserver(() => {
+            // AdSense 스타일 주입 감지 시 즉시 중앙 정렬 복원
+            ad.style.display = 'block';
+            ad.style.margin = '2rem auto';
+            ad.style.marginLeft = 'auto';
+            ad.style.marginRight = 'auto';
+            ad.style.textAlign = 'center';
+            ad.style.width = '100%';
+            ad.style.maxWidth = '100%';
+            ad.style.float = 'none';
+            ad.style.position = 'static';
+            ad.style.left = 'auto';
+            ad.style.right = 'auto';
+            ad.style.transform = 'none';
+            ad.style.clear = 'both';
+            
             updateAdSize();
+            
             // iframe이 추가되면 다시 중앙 정렬 적용
             const newIframes = ad.querySelectorAll('iframe');
             newIframes.forEach(iframe => {
@@ -840,7 +856,7 @@ function optimizeDynamicContent() {
             childList: true,
             subtree: true,
             attributes: true,
-            attributeFilter: ['style', 'class']
+            attributeFilter: ['style', 'class', 'width', 'height']
         });
     });
 }
