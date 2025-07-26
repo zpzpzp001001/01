@@ -2781,19 +2781,7 @@ img {
         margin: 1.5rem auto;
     }
     
-    /* 모바일에서 애드센스 광고 최적화 */
-    .article-content ins[class*="adsbygoogle"],
-    .article-content .adsbygoogle {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 1.5rem auto !important;
-        padding: 0 !important;
-        text-align: center !important;
-        clear: both !important;
-        overflow: visible !important;
-        min-height: 250px !important;
-    }
+
     
     /* 작은 모바일에서도 기본 스타일 유지 */
     @media (max-width: 576px) {
@@ -2802,25 +2790,6 @@ img {
             max-width: 100% !important;
             border-radius: 4px !important;
             margin: 1rem auto;
-        }
-        
-        /* 작은 모바일에서 애드센스 광고 최적화 */
-        .article-content ins[class*="adsbygoogle"],
-        .article-content .adsbygoogle {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 1rem auto !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            min-height: 200px !important;
-            text-align: center !important;
-            display: block !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            position: static !important;
-            transform: none !important;
         }
     }
 }
@@ -4021,18 +3990,7 @@ body * {
     .article-content {
         font-size: 1.125rem !important; /* 18px - 작은 화면에서 적당한 크기 */
         line-height: 1.65 !important;
-        padding: 0 0.75rem !important; /* 작은 화면에서 적절한 좌우 여백 */
-    }
-    
-    /* 작은 모바일에서 광고는 컨테이너 밖으로 확장하여 중앙 정렬 */
-    .article-content ins[class*="adsbygoogle"],
-    .article-content .adsbygoogle,
-    .article-body ins[class*="adsbygoogle"],
-    .article-body .adsbygoogle {
-        margin-left: -0.75rem !important;
-        margin-right: -0.75rem !important;
-        width: calc(100% + 1.5rem) !important;
-        max-width: calc(100% + 1.5rem) !important;
+        /* Hugo 기본 스타일 - Bootstrap 그리드 시스템 사용, 인위적 패딩 제거 */
     }
     
     .article-content p {
@@ -4162,104 +4120,11 @@ body * {
     color: #212529;
 }
 
-/* AdSense 광고 강제 중앙 정렬 - 모든 우선순위 무시 */
-.article-content ins[class*="adsbygoogle"],
-.article-content .adsbygoogle,
-.article-body ins[class*="adsbygoogle"],
-.article-body .adsbygoogle,
-ins[class*="adsbygoogle"],
-.adsbygoogle {
-    display: block !important;
-    text-align: center !important;
-    margin: 2rem auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    clear: both !important;
-    overflow: visible !important;
-    min-height: 280px !important;
-    background: transparent !important;
-    float: none !important;
-    position: static !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-}
-
-/* 애드센스 컨테이너 간격 최적화 */
-.article-content ins[class*="adsbygoogle"] {
-    margin-bottom: 2rem !important;
-}
-
-/* H2 소제목과 애드센스 광고 간격 최적화 */
+/* Hugo 기본 H2 스타일 복원 */
 .article-content h2 {
-    margin-top: 2.5rem !important;
-    margin-bottom: 1rem !important;
-    clear: both !important;
-}
-
-/* 애드센스 광고 다음에 오는 H2는 적절한 여백 */
-.article-content ins[class*="adsbygoogle"] + h2,
-.article-content .adsbygoogle + h2,
-.article-content ins[class*="adsbygoogle"] + * + h2,
-.article-content .adsbygoogle + * + h2 {
-    margin-top: 2rem !important;
-}
-
-/* 광고 내부 요소들도 강제 중앙 정렬 */
-.article-content ins[class*="adsbygoogle"] *,
-.article-content .adsbygoogle *,
-.article-body ins[class*="adsbygoogle"] *,
-.article-body .adsbygoogle *,
-ins[class*="adsbygoogle"] *,
-.adsbygoogle * {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-    display: block !important;
-    float: none !important;
-    position: static !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-}
-
-/* 태블릿 화면에서 광고 강제 중앙 정렬 */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .article-content ins[class*="adsbygoogle"],
-    .article-content .adsbygoogle,
-    .article-body ins[class*="adsbygoogle"],
-    .article-body .adsbygoogle,
-    ins[class*="adsbygoogle"],
-    .adsbygoogle {
-        min-height: 300px !important;
-        margin: 2.5rem auto !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        text-align: center !important;
-        display: block !important;
-        width: 100% !important;
-    }
-}
-
-/* 데스크톱에서 광고 강제 중앙 정렬 */
-@media (min-width: 1025px) {
-    .article-content ins[class*="adsbygoogle"],
-    .article-content .adsbygoogle,
-    .article-body ins[class*="adsbygoogle"],
-    .article-body .adsbygoogle,
-    ins[class*="adsbygoogle"],
-    .adsbygoogle {
-        min-height: 320px !important;
-        margin: 3rem auto !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        text-align: center !important;
-        display: block !important;
-        width: 100% !important;
-    }
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    clear: both;
 }
 
 .article-content h2 {
@@ -4586,28 +4451,7 @@ ins[class*="adsbygoogle"] *,
     .article-content {
         font-size: 1.0625rem; /* 17px로 조금 더 줄임 - 모바일 최적 크기 */
         line-height: 1.6; /* 줄간격 조정 */
-        padding: 0 1rem; /* 원래 휴고 스타일 복원 - 적절한 좌우 여백 */
-    }
-    
-    /* 광고는 컨테이너 밖으로 확장하여 중앙 정렬 */
-    .article-content ins[class*="adsbygoogle"],
-    .article-content .adsbygoogle,
-    .article-body ins[class*="adsbygoogle"],
-    .article-body .adsbygoogle {
-        margin-left: -1rem !important;
-        margin-right: -1rem !important;
-        width: calc(100% + 2rem) !important;
-        max-width: calc(100% + 2rem) !important;
-        display: block !important;
-        text-align: center !important;
-        padding: 0 !important;
-        clear: both !important;
-        overflow: visible !important;
-        position: relative !important;
-        left: 0 !important;
-        right: 0 !important;
-        transform: none !important;
-        float: none !important;
+        /* Hugo 기본 스타일 - Bootstrap 그리드 시스템 사용, 인위적 패딩 제거 */
     }
     
     .article-content h2 {
@@ -4655,113 +4499,4 @@ ins[class*="adsbygoogle"] *,
   }
 }
 
-/* =========================== */
-/* 최우선 AdSense 광고 중앙 정렬 규칙 */
-/* 이 규칙은 다른 모든 스타일을 무시합니다 */
-/* =========================== */
-
-/* 모든 AdSense 광고 컨테이너 강제 중앙 정렬 - 최강 특이성 */
-.container .row .col-lg-8 .article-content .article-body ins[class*="adsbygoogle"],
-.container .row .col-lg-8 .article-content .article-body .adsbygoogle,
-.container .row .col-lg-8 .article-content ins[class*="adsbygoogle"],
-.container .row .col-lg-8 .article-content .adsbygoogle,
-.col-lg-8 .article-content .article-body ins[class*="adsbygoogle"],
-.col-lg-8 .article-content .article-body .adsbygoogle,
-.col-lg-8 .article-content ins[class*="adsbygoogle"],
-.col-lg-8 .article-content .adsbygoogle,
-.article-content .article-body ins[class*="adsbygoogle"],
-.article-content .article-body .adsbygoogle,
-.article-content ins[class*="adsbygoogle"],
-.article-content .adsbygoogle,
-ins[class*="adsbygoogle"],
-.adsbygoogle,
-div[id*="google_ads"],
-div[class*="google-ads"] {
-    display: block !important;
-    margin: 2rem auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    clear: both !important;
-    float: none !important;
-    position: static !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    box-sizing: border-box !important;
-    justify-self: center !important;
-    align-self: center !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-/* AdSense 내부 iframe도 중앙 정렬 */
-ins[class*="adsbygoogle"] iframe,
-.adsbygoogle iframe,
-div[id*="google_ads"] iframe,
-div[class*="google-ads"] iframe {
-    display: block !important;
-    margin: 0 auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    float: none !important;
-    position: static !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-}
-
-/* 모든 화면 크기에서 광고 중앙 정렬 보장 - 최대 특이성 */
-@media screen and (min-width: 1px) {
-    .col-lg-8 .article-content .article-body ins[class*="adsbygoogle"],
-    .col-lg-8 .article-content .article-body .adsbygoogle,
-    .col-lg-8 .article-content ins[class*="adsbygoogle"],
-    .col-lg-8 .article-content .adsbygoogle,
-    .container .row .col-lg-8 ins[class*="adsbygoogle"],
-    .container .row .col-lg-8 .adsbygoogle,
-    ins[class*="adsbygoogle"],
-    .adsbygoogle,
-    div[id*="google_ads"],
-    div[class*="google-ads"] {
-        display: block !important;
-        margin: 2rem auto !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        text-align: center !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        clear: both !important;
-        float: none !important;
-        position: static !important;
-        left: auto !important;
-        right: auto !important;
-        transform: none !important;
-        justify-self: center !important;
-        align-self: center !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-    
-    ins[class*="adsbygoogle"] iframe,
-    .adsbygoogle iframe,
-    div[id*="google_ads"] iframe,
-    div[class*="google-ads"] iframe {
-        display: block !important;
-        margin: 0 auto !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        text-align: center !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        float: none !important;
-        position: static !important;
-        left: auto !important;
-        right: auto !important;
-        transform: none !important;
-    }
-}
+/* Hugo 자연스러운 AdSense 통합 - 인위적 조작 제거 */
