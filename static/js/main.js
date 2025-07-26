@@ -756,22 +756,36 @@ function optimizeDynamicContent() {
         }
     });
     
-    // AdSense 광고 강제 중앙 정렬 최적화
+    // AdSense 광고 컨테이너 확장 및 중앙 정렬 최적화
     const adsenseElements = document.querySelectorAll('ins[class*="adsbygoogle"], .adsbygoogle, div[id*="google_ads"], div[class*="google-ads"]');
     adsenseElements.forEach(ad => {
-        // 광고 컨테이너 강제 중앙 정렬
+        // 광고가 article-content 내부에 있는지 확인
+        const isInArticle = ad.closest('.article-content') || ad.closest('.article-body');
+        
+        if (isInArticle) {
+            // 화면 크기에 따른 여백 계산
+            const screenWidth = window.innerWidth;
+            let marginValue = '1rem';
+            if (screenWidth <= 576) {
+                marginValue = '0.75rem';
+            }
+            
+            // 컨테이너 밖으로 확장하여 전체 폭 사용
+            ad.style.marginLeft = `-${marginValue}`;
+            ad.style.marginRight = `-${marginValue}`;
+            ad.style.width = `calc(100% + ${marginValue} + ${marginValue})`;
+            ad.style.maxWidth = `calc(100% + ${marginValue} + ${marginValue})`;
+        }
+        
+        // 기본 중앙 정렬 스타일
         ad.style.display = 'block';
         ad.style.textAlign = 'center';
         ad.style.margin = '2rem auto';
-        ad.style.marginLeft = 'auto';
-        ad.style.marginRight = 'auto';
-        ad.style.width = '100%';
-        ad.style.maxWidth = '100%';
         ad.style.overflow = 'visible';
         ad.style.float = 'none';
-        ad.style.position = 'static';
-        ad.style.left = 'auto';
-        ad.style.right = 'auto';
+        ad.style.position = 'relative';
+        ad.style.left = '0';
+        ad.style.right = '0';
         ad.style.transform = 'none';
         ad.style.clear = 'both';
         
@@ -983,18 +997,32 @@ window.addEventListener('load', function() {
 function optimizeAdSenseDisplay() {
     const ads = document.querySelectorAll('ins[class*="adsbygoogle"], .adsbygoogle, div[id*="google_ads"], div[class*="google-ads"]');
     ads.forEach(ad => {
-        // 강제 중앙 정렬 적용
+        // 광고가 article-content 내부에 있는지 확인
+        const isInArticle = ad.closest('.article-content') || ad.closest('.article-body');
+        
+        if (isInArticle) {
+            // 화면 크기에 따른 여백 계산
+            const screenWidth = window.innerWidth;
+            let marginValue = '1rem';
+            if (screenWidth <= 576) {
+                marginValue = '0.75rem';
+            }
+            
+            // 컨테이너 밖으로 확장하여 전체 폭 사용
+            ad.style.marginLeft = `-${marginValue}`;
+            ad.style.marginRight = `-${marginValue}`;
+            ad.style.width = `calc(100% + ${marginValue} + ${marginValue})`;
+            ad.style.maxWidth = `calc(100% + ${marginValue} + ${marginValue})`;
+        }
+        
+        // 기본 중앙 정렬 스타일
         ad.style.display = 'block';
         ad.style.margin = '2rem auto';
-        ad.style.marginLeft = 'auto';
-        ad.style.marginRight = 'auto';
         ad.style.textAlign = 'center';
-        ad.style.width = '100%';
-        ad.style.maxWidth = '100%';
         ad.style.float = 'none';
-        ad.style.position = 'static';
-        ad.style.left = 'auto';
-        ad.style.right = 'auto';
+        ad.style.position = 'relative';
+        ad.style.left = '0';
+        ad.style.right = '0';
         ad.style.transform = 'none';
         ad.style.clear = 'both';
         

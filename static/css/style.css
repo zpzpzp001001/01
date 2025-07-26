@@ -4021,8 +4021,18 @@ body * {
     .article-content {
         font-size: 1.125rem !important; /* 18px - 작은 화면에서 적당한 크기 */
         line-height: 1.65 !important;
-        padding-left: 0.75rem !important; /* 작은 화면에서 좌측 여백 */
-        padding-right: 0.75rem !important; /* 작은 화면에서 우측 여백 */
+        padding: 0 0.75rem !important; /* 작은 화면에서 적절한 좌우 여백 */
+    }
+    
+    /* 작은 모바일에서 광고는 컨테이너 밖으로 확장하여 중앙 정렬 */
+    .article-content ins[class*="adsbygoogle"],
+    .article-content .adsbygoogle,
+    .article-body ins[class*="adsbygoogle"],
+    .article-body .adsbygoogle {
+        margin-left: -0.75rem !important;
+        margin-right: -0.75rem !important;
+        width: calc(100% + 1.5rem) !important;
+        max-width: calc(100% + 1.5rem) !important;
     }
     
     .article-content p {
@@ -4576,15 +4586,28 @@ ins[class*="adsbygoogle"] *,
     .article-content {
         font-size: 1.0625rem; /* 17px로 조금 더 줄임 - 모바일 최적 크기 */
         line-height: 1.6; /* 줄간격 조정 */
-        padding-left: 0; /* 좌측 여백 제거 - 광고 중앙 정렬을 위해 */
-        padding-right: 0; /* 우측 여백 제거 - 광고 중앙 정렬을 위해 */
+        padding: 0 1rem; /* 원래 휴고 스타일 복원 - 적절한 좌우 여백 */
     }
     
-    /* 텍스트 콘텐츠만 여백 추가 (광고 제외) */
-    .article-content > :not(ins):not(.adsbygoogle),
-    .article-body > :not(ins):not(.adsbygoogle) {
-        padding-left: 1rem;
-        padding-right: 1rem;
+    /* 광고는 컨테이너 밖으로 확장하여 중앙 정렬 */
+    .article-content ins[class*="adsbygoogle"],
+    .article-content .adsbygoogle,
+    .article-body ins[class*="adsbygoogle"],
+    .article-body .adsbygoogle {
+        margin-left: -1rem !important;
+        margin-right: -1rem !important;
+        width: calc(100% + 2rem) !important;
+        max-width: calc(100% + 2rem) !important;
+        display: block !important;
+        text-align: center !important;
+        padding: 0 !important;
+        clear: both !important;
+        overflow: visible !important;
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+        float: none !important;
     }
     
     .article-content h2 {
