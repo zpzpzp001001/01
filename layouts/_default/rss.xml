@@ -12,7 +12,7 @@
 {{- $pages = $pages | first $limit -}}
 {{- end -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dc="http://purl.org/dc/elements/1.1/")
   <channel>
     <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} - {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
@@ -33,7 +33,8 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
-      <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}</description>
+      <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 500 }}{{ end }}</description>
+      <dc:creator>{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Author.name }}{{ end }}</dc:creator>
       {{ $image := "" }}
       {{ if .Params.thumbnail }}
           {{ $image = .Params.thumbnail }}
@@ -46,6 +47,11 @@
       {{ end }}
       {{ if $image }}
       <enclosure url="{{ $image | absURL }}" type="image/jpeg" />
+      <media:content url="{{ $image | absURL }}" type="image/jpeg" medium="image">
+        <media:title>{{ .Title }}</media:title>
+        <media:description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}</media:description>
+        <media:credit>{{ .Site.Title }}</media:credit>
+      </media:content>
       {{ end }}
       {{ if .Params.categories }}
       {{ range .Params.categories }}
