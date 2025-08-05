@@ -11,7 +11,7 @@
         <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
         <news:news>
             <news:publication>
-                <news:name>{{ .Site.Title }}</news:name>
+                <news:name>{{ .Site.Title | html }}</news:name>
                 <news:language>ko</news:language>
             </news:publication>
             {{ if or (eq .Section "automotive") (eq .Section "economy") (eq .Section "securities") }}
@@ -31,7 +31,7 @@
             <news:genres>PressRelease</news:genres>
             {{ end }}
             <news:publication_date>{{ .Date.Format "2006-01-02T15:04:05-07:00" }}</news:publication_date>
-            <news:title>{{ .Title }}</news:title>
+            <news:title>{{ .Title | html }}</news:title>
             {{ if .Params.tags }}
             <news:keywords>{{ delimit .Params.tags ", " }}</news:keywords>
             {{ end }}

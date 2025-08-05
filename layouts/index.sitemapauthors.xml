@@ -23,8 +23,8 @@
         {{ if .Params.profile_image }}
         <image:image>
             <image:loc>{{ .Params.profile_image | absURL }}</image:loc>
-            <image:caption>{{ .Title }} - {{ .Site.Title }} 기자</image:caption>
-            <image:title>{{ .Title }}</image:title>
+            <image:caption>{{ .Title | html }} - {{ .Site.Title | html }} 기자</image:caption>
+            <image:title>{{ .Title | html }}</image:title>
         </image:image>
         {{ end }}
     </url>

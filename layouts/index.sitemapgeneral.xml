@@ -21,8 +21,8 @@
         {{ if .Params.image }}
         <image:image>
             <image:loc>{{ .Params.image | absURL }}</image:loc>
-            <image:caption>{{ .Title }}</image:caption>
-            <image:title>{{ .Title }}</image:title>
+            <image:caption>{{ .Title | html }}</image:caption>
+            <image:title>{{ .Title | html }}</image:title>
         </image:image>
         {{ end }}
     </url>

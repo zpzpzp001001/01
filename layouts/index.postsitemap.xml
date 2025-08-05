@@ -28,8 +28,8 @@
         {{ range first 1 .Params.images }}
         <image:image>
             <image:loc>{{ . | absURL }}</image:loc>
-            <image:caption>{{ $.Title }}</image:caption>
-            <image:title>{{ $.Title }}</image:title>
+            <image:caption>{{ $.Title | html }}</image:caption>
+            <image:title>{{ $.Title | html }}</image:title>
         </image:image>
         {{ end }}
         {{ end }}
