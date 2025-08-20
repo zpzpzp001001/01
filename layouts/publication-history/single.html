@@ -41,33 +41,16 @@
         <section>
             <h2 class="text-2xl font-bold mb-6">📅 날짜별 발행 내역</h2>
             
-            {{ $articlesByDate := dict }}
-            {{ range $articles }}
-                {{ $dateKey := .Date.Format "2006-01-02" }}
-                {{ $existing := index $articlesByDate $dateKey }}
-                {{ if $existing }}
-                    {{ $articlesByDate = merge $articlesByDate (dict $dateKey (append $existing .)) }}
-                {{ else }}
-                    {{ $articlesByDate = merge $articlesByDate (dict $dateKey (slice .)) }}
-                {{ end }}
-            {{ end }}
-
-            {{ $sortedDates := slice }}
-            {{ range $date, $articles := $articlesByDate }}
-                {{ $sortedDates = $sortedDates | append $date }}
-            {{ end }}
-            {{ $sortedDates = sort $sortedDates "value" "desc" }}
-
+            {{ $groupedArticles := $articles.GroupByDate "2006-01-02" }}
+            
             <div class="space-y-8">
-                {{ range $sortedDates }}
-                    {{ $date := . }}
-                    {{ $dateArticles := index $articlesByDate $date }}
-                    {{ $formattedDate := time $date | time.Format "2006년 1월 2일" }}
+                {{ range $groupedArticles }}
+                    {{ $formattedDate := .Key | time.Format "2006년 1월 2일" }}
                     
                     <div class="border-l-4 border-blue-500 pl-6">
                         <h3 class="text-xl font-semibold mb-4 text-blue-600">{{ $formattedDate }}</h3>
                         <div class="grid gap-4">
-                            {{ range $dateArticles }}
+                            {{ range .Pages }}
                             <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                                 <div class="flex justify-between items-start">
                                     <div class="flex-1">
