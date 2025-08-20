@@ -3,7 +3,6 @@ title: "발행 내역"
 description: "넷파일즈에서 발행된 모든 기사들의 발행 내역을 날짜별로 확인하실 수 있습니다."
 date: 2025-08-20T10:00:00+09:00
 author: "넷파일즈 편집부"
-type: "publication-history"
 layout: "publication-history"
 url: "/publication-history/"
 slug: "publication-history"
