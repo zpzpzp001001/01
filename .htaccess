@@ -1,0 +1,28 @@
+# Maintenance mode
+RewriteEngine On
+
+# Allow access to index.html (maintenance page)
+RewriteRule ^index\.html$ - [L]
+
+# Redirect all other requests to maintenance page
+RewriteCond %{REQUEST_URI} !^/index\.html$
+RewriteRule ^.*$ /index.html [R=302,L]
+
+# Block direct access to other HTML files
+<Files "*.html">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Allow only index.html
+<Files "index.html">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# Hide directory contents
+Options -Indexes
+
+# Block access to 01 directory and all subdirectories
+RewriteRule ^01/ - [F,L]
+RewriteRule ^01$ - [F,L]
