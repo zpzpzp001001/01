@@ -1,0 +1,43 @@
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    
+    {{ range first 1000 (.Site.RegularPages.ByDate.Reverse) }}
+    {{ if and (not .Params.private) (not .Params.draft) (ge (.Date.Unix) (sub now.Unix 259200)) }}
+    <!-- Only include articles from the last 3 days for Google News -->
+    <!-- Section: {{ .Section }}, Title: {{ .Title }} -->
+    <url>
+        <loc>{{ .Permalink }}</loc>
+        <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        <news:news>
+            <news:publication>
+                <news:name>{{ .Site.Title | html }}</news:name>
+                <news:language>ko</news:language>
+            </news:publication>
+            {{ if or (eq .Section "automotive") (eq .Section "economy") (eq .Section "securities") }}
+            <news:genres>PressRelease</news:genres>
+            {{ else if or (eq .Section "technology") (eq .Section "realestate") (eq .Section "it") (eq .Section "international") }}
+            <news:genres>OpEd</news:genres>
+            {{ else if .Params.genre }}
+            {{ if eq .Params.genre "blog" }}
+            <news:genres>Blog</news:genres>
+            {{ else if eq .Params.genre "pressrelease" }}
+            <news:genres>PressRelease</news:genres>
+            {{ else if or (eq .Params.genre "opinion") (eq .Params.genre "oped") }}
+            <news:genres>OpEd</news:genres>
+            {{ end }}
+            {{ else }}
+            <!-- 기본 장르 설정 -->
+            <news:genres>PressRelease</news:genres>
+            {{ end }}
+            <news:publication_date>{{ .Date.Format "2006-01-02T15:04:05-07:00" }}</news:publication_date>
+            <news:title>{{ .Title | html }}</news:title>
+            {{ if .Params.tags }}
+            <news:keywords>{{ delimit .Params.tags ", " }}</news:keywords>
+            {{ end }}
+        </news:news>
+    </url>
+    {{ end }}
+    {{ end }}
+    
+</urlset> 

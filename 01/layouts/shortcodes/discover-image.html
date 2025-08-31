@@ -1,0 +1,61 @@
+{{/*
+  구글 디스커버 최적화 이미지 숏코드
+  사용법: {{< discover-image src="image.jpg" alt="이미지 설명" caption="캡션" >}}
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" }}
+{{ $caption := .Get "caption" }}
+{{ $width := .Get "width" | default 1200 }}
+{{ $height := .Get "height" | default 675 }}
+
+{{ if $src }}
+  {{ if hasPrefix $src "http" }}
+    <!-- 외부 이미지 (Cloudflare Images) -->
+    <figure class="discover-image">
+      <img src="{{ $src }}" 
+           alt="{{ $alt }}" 
+           width="{{ $width }}"
+           height="{{ $height }}"
+           loading="lazy"
+           style="width: 100%; height: auto; border-radius: 8px;">
+      {{ if $caption }}
+      <figcaption>{{ $caption }}</figcaption>
+      {{ end }}
+    </figure>
+  {{ else }}
+    {{ $image := resources.Get $src }}
+    {{ if $image }}
+      {{ $resized := $image.Resize (printf "%dx%d jpg q95" $width $height) }}
+      
+      <figure class="discover-image">
+        <img src="{{ $resized.RelPermalink }}" 
+             alt="{{ $alt }}" 
+             width="{{ $resized.Width }}"
+             height="{{ $resized.Height }}"
+             loading="lazy"
+             style="width: 100%; height: auto; border-radius: 8px;">
+        {{ if $caption }}
+        <figcaption>{{ $caption }}</figcaption>
+        {{ end }}
+      </figure>
+    {{ else }}
+    <!-- 외부 이미지 또는 정적 이미지 -->
+    <figure class="discover-image">
+      <img src="{{ $src }}" 
+           alt="{{ $alt }}" 
+           width="{{ $width }}"
+           height="{{ $height }}"
+           loading="lazy"
+           style="width: 100%; height: auto; border-radius: 8px;">
+      {{ if $caption }}
+      <figcaption>{{ $caption }}</figcaption>
+      {{ end }}
+    </figure>
+  {{ end }}
+  {{ end }}
+{{ else }}
+  <div class="image-error">
+    <p>이미지 경로가 지정되지 않았습니다.</p>
+  </div>
+{{ end }} 

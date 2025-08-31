@@ -1,0 +1,21 @@
+{{ if not .IsHome }}
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            
+            {{ if .Section }}
+            <li class="breadcrumb-item">
+                <a href="/{{ .Section }}/">{{ .Section | title }}</a>
+            </li>
+            {{ end }}
+            
+            {{ if .IsPage }}
+            <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+            {{ end }}
+        </ol>
+    </div>
+</nav>
+{{ end }}

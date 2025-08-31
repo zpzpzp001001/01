@@ -1,0 +1,65 @@
+{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
+{{- $pages := slice -}}
+{{- if or $.IsHome $.IsSection -}}
+{{- $filteredPages := where $pctx.RegularPages "Section" "in" (slice "automotive" "economy") -}}
+{{- $pages = $filteredPages -}}
+{{- else -}}
+{{- $pages = $pctx.Pages -}}
+{{- end -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} - {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ .Site.Params.description }}</description>
+    <generator>Hugo</generator>{{ with .Site.LanguageCode }}
+    <language>{{.}}</language>{{end}}{{ with .Site.Author.email }}
+    <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
+    <webMaster>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</webMaster>{{end}}{{ with .Site.Copyright }}
+    <copyright>{{.}}</copyright>{{end}}{{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{- with .OutputFormats.Get "RSS" -}}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end -}}
+    {{ range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 500 }}{{ end }}</description>
+      <dc:creator>{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Author.name }}{{ end }}</dc:creator>
+      {{ $image := "" }}
+      {{ if .Params.thumbnail }}
+          {{ $image = .Params.thumbnail }}
+      {{ else if .Params.image }}
+          {{ $image = .Params.image }}
+      {{ else if .Params.featured_image }}
+          {{ $image = .Params.featured_image }}
+      {{ else if .Params.images }}
+          {{ $image = index .Params.images 0 }}
+      {{ end }}
+      {{ if $image }}
+      <enclosure url="{{ $image | absURL }}" type="image/jpeg" />
+      <media:content url="{{ $image | absURL }}" type="image/jpeg" medium="image">
+        <media:title>{{ .Title }}</media:title>
+        <media:description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}</media:description>
+        <media:credit>{{ .Site.Title }}</media:credit>
+      </media:content>
+      {{ end }}
+      {{ if .Params.categories }}
+      {{ range .Params.categories }}
+      <category>{{ . }}</category>
+      {{ end }}
+      {{ end }}
+      <content:encoded>{{ .Content | html }}</content:encoded>
+    </item>
+    {{ end }}
+  </channel>
+</rss>

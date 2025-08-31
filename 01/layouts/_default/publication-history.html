@@ -1,0 +1,88 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-8">
+    <article class="prose prose-lg max-w-none">
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">{{ .Title }}</h1>
+            <p class="text-xl text-gray-600 mb-6">{{ .Description }}</p>
+        </header>
+
+        <div class="content mb-12">
+            {{ .Content }}
+        </div>
+
+        <!-- 발행 통계 섹션 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">📊 발행 통계</h2>
+            {{ $articles := where site.RegularPages "Section" "automotive" }}
+            {{ $totalCount := len $articles }}
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-blue-50 p-6 rounded-lg text-center">
+                    <h3 class="text-3xl font-bold text-blue-600">{{ $totalCount }}</h3>
+                    <p class="text-gray-600">총 발행 기사</p>
+                </div>
+                
+                {{ $thisMonth := now.Format "2006-01" }}
+                {{ $thisMonthArticles := where $articles ".Date" ">=" (now.AddDate 0 -1 0) }}
+                <div class="bg-green-50 p-6 rounded-lg text-center">
+                    <h3 class="text-3xl font-bold text-green-600">{{ len $thisMonthArticles }}</h3>
+                    <p class="text-gray-600">이번 달 발행</p>
+                </div>
+                
+                {{ $thisWeekArticles := where $articles ".Date" ">=" (now.AddDate 0 0 -7) }}
+                <div class="bg-purple-50 p-6 rounded-lg text-center">
+                    <h3 class="text-3xl font-bold text-purple-600">{{ len $thisWeekArticles }}</h3>
+                    <p class="text-gray-600">이번 주 발행</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 날짜별 발행 내역 섹션 -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6">📅 날짜별 발행 내역</h2>
+            
+            {{ $groupedArticles := $articles.GroupByDate "2006-01-02" }}
+            
+            <div class="space-y-8">
+                {{ range $groupedArticles }}
+                    {{ $formattedDate := .Key | time.Format "2006년 1월 2일" }}
+                    
+                    <div class="border-l-4 border-blue-500 pl-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600">{{ $formattedDate }}</h3>
+                        <div class="grid gap-4">
+                            {{ range .Pages }}
+                            <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-lg mb-2">
+                                            <a href="{{ .Permalink }}" class="text-gray-900 hover:text-blue-600 transition-colors">
+                                                {{ .Title }}
+                                            </a>
+                                        </h4>
+                                        {{ if .Params.description }}
+                                        <p class="text-gray-600 text-sm mb-2">{{ .Params.description }}</p>
+                                        {{ end }}
+                                        <div class="flex flex-wrap gap-2 text-xs">
+                                            {{ if .Params.author }}
+                                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">{{ .Params.author }}</span>
+                                            {{ end }}
+                                            <span class="text-gray-500">{{ .Date.Format "15:04" }}</span>
+                                        </div>
+                                    </div>
+                                    {{ if .Params.thumbnail }}
+                                    <div class="ml-4 flex-shrink-0">
+                                        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" 
+                                             class="w-20 h-20 object-cover rounded">
+                                    </div>
+                                    {{ end }}
+                                </div>
+                            </div>
+                            {{ end }}
+                        </div>
+                    </div>
+                {{ end }}
+            </div>
+        </section>
+    </article>
+</div>
+{{ end }}

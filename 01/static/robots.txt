@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas  
+Disallow: /admin/
+Disallow: /private/
+
+# Block video sitemap completely
+Disallow: /sitemap-video.xml
+
+# Individual sitemap URLs for netfilesnext.com
+Sitemap: https://netfilesnext.com/sitemap-general.xml
+Sitemap: https://netfilesnext.com/sitemap-news.xml
+Sitemap: https://netfilesnext.com/sitemap-authors.xml
+Sitemap: https://netfilesnext.com/sitemap-pages.xml
+Sitemap: https://netfilesnext.com/sitemap-local.xml
+Sitemap: https://netfilesnext.com/post-sitemap1.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1 
