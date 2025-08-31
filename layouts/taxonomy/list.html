@@ -1,0 +1,20 @@
+{{ define "main" }}
+<section class="taxonomy-list">
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ .Title }}</h1>
+        </div>
+
+        <div class="taxonomy-simple">
+            {{ range .Data.Terms.Alphabetical }}
+            <div class="taxonomy-item">
+                <a href="{{ .Page.Permalink }}" class="taxonomy-link">
+                    <h3>{{ .Page.Title }}</h3>
+                    <span class="count">{{ .Count }}개 기사</span>
+                </a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}

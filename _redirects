@@ -1,0 +1,10 @@
+# Redirects for Cloudflare Pages
+/index.xml /index.json 301
+/feed.xml /index.json 301
+/rss.xml /index.json 301
+
+# Block video sitemap completely
+/sitemap-video.xml /404.html 404
+
+# 404 fallback
+/* /404.html 404 

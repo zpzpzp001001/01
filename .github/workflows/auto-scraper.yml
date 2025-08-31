@@ -1,0 +1,123 @@
+name: Auto Content Scraper
+
+on:
+  # n8n 웹훅으로 트리거
+  repository_dispatch:
+    types: [scrape-content]
+  
+  # 수동 실행도 가능
+  workflow_dispatch:
+    inputs:
+      sitemap_url:
+        description: 'Sitemap URL to scrape'
+        required: false
+        default: 'https://www.reportera.co.kr/sitemap.xml'
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Create content directory
+        run: |
+          mkdir -p content
+          
+      - name: Test email configuration
+        env:
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: |
+          echo "📧 Testing email configuration..."
+          if [ -z "$SENDER_EMAIL" ] || [ -z "$SENDER_PASSWORD" ] || [ -z "$RECIPIENT_EMAIL" ]; then
+            echo "⚠️ Email configuration incomplete - email reports will be skipped"
+          else
+            echo "✅ Email configuration detected"
+          fi
+          
+      - name: Run AI scraper with email reporting
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          OPENAI_MODEL: 'gpt-4o-mini'
+          SITEMAP_URL: ${{ github.event.inputs.sitemap_url || 'https://www.reportera.co.kr/news-sitemap.xml' }}
+        run: |
+          echo "🚀 Starting AI-powered scraper with email reporting"
+          echo "📥 Sitemap: $SITEMAP_URL"
+          echo "📧 Email reports: $([ -n "$SENDER_EMAIL" ] && echo 'Enabled' || echo 'Disabled')"
+          python ai_scraper.py
+          
+      - name: Send error report email (if scraper failed)
+        if: failure()
+        env:
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: 'gpt-4o-mini'
+        run: |
+          echo "❌ Scraper failed - sending error report email"
+          python send_email.py error "GitHub Actions 워크플로우 실행 실패"
+          
+      - name: Commit and push changes
+        if: success()
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # __pycache__ 폴더 제거 (Git에 추가되지 않도록)
+          find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+          
+          # content/ 폴더와 데이터베이스만 추가
+          git add content/ 2>/dev/null || true
+          git add processed_articles.db 2>/dev/null || true
+          
+          # 변경사항이 있는지 확인 (staged files만)
+          if [ -n "$(git diff --cached --name-only)" ]; then
+            echo "📝 Changes detected - committing..."
+            git commit -m "🤖 Auto-generated content $(date '+%Y-%m-%d %H:%M:%S')"
+            
+            # PAT 토큰이 있으면 사용, 없으면 기본 토큰 사용
+            if [ -n "$PAT_TOKEN" ]; then
+              git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git
+            fi
+            
+            git push
+            echo "✅ Changes pushed successfully"
+          else
+            echo "ℹ️ No changes to commit"
+          fi
+          
+      - name: Notify completion
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "✅ Content scraping completed and pushed to repository"
+          echo "🚀 Cloudflare Pages will automatically deploy the changes"
+          
+      - name: No changes notification
+        if: steps.check_changes.outputs.has_changes == 'false'
+        run: |
+          echo "ℹ️ No new content found to scrape" 

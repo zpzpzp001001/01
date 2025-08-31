@@ -1,0 +1,205 @@
+{{ define "main" }}
+<section class="category-page py-4">
+    <div class="container">
+        <!-- Category Header -->
+        <div class="category-header mb-5 text-center">
+            <h1 class="category-title h2 mb-3">{{ .Title }}</h1>
+            {{ if .Description }}
+            <p class="category-description text-muted">{{ .Description }}</p>
+            {{ end }}
+            <div class="category-divider mx-auto"></div>
+        </div>
+
+        <!-- Articles Grid (2x5 layout like main page) -->
+        {{ if .Pages }}
+        <div class="articles-grid">
+            <div class="row g-4">
+                {{ range (.Paginate .Pages 10).Pages }}
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm border-0 news-card">
+                        <a href="{{ .RelPermalink }}" class="text-decoration-none">
+                            <div class="card-img-top position-relative" style="height: 250px; overflow: hidden;">
+                                {{ if .Params.images }}
+                                <img src="{{ index .Params.images 0 }}" 
+                                     alt="{{ .Title }}" 
+                                     class="img-fluid w-100 h-100" 
+                                     style="object-fit: cover;">
+                                {{ else }}
+                                <div class="no-image-placeholder d-flex align-items-center justify-content-center bg-light h-100">
+                                    <i class="fas fa-car fa-3x text-muted"></i>
+                                </div>
+                                {{ end }}
+                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">
+                                    자동차
+                                </span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="h5 card-title text-dark mb-3" style="line-height: 1.4;">{{ .Title | truncate 80 }}</h3>
+                                <p class="card-text text-muted small mb-3 flex-grow-1">{{ .Summary | plainify | truncate 120 }}</p>
+                                <div class="mt-auto">
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        {{ .Date.Format "01월 02일" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        {{ if gt .Paginator.TotalPages 1 }}
+        <nav class="pagination-nav mt-5" aria-label="페이지 네비게이션">
+            <div class="d-flex justify-content-center">
+                <ul class="pagination pagination-lg">
+                    {{ if .Paginator.HasPrev }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ .Paginator.Prev.URL }}" aria-label="이전">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {{ end }}
+                    
+                    {{ range .Paginator.Pagers }}
+                    {{ if eq . $.Paginator }}
+                    <li class="page-item active">
+                        <span class="page-link">{{ .PageNumber }}</span>
+                    </li>
+                    {{ else }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ .URL }}">{{ .PageNumber }}</a>
+                    </li>
+                    {{ end }}
+                    {{ end }}
+                    
+                    {{ if .Paginator.HasNext }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ .Paginator.Next.URL }}" aria-label="다음">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </nav>
+        {{ end }}
+
+        {{ else }}
+        <div class="text-center py-5">
+            <i class="fas fa-car fa-5x text-muted mb-4"></i>
+            <h3 class="h4 text-muted">아직 등록된 자동차 기사가 없습니다.</h3>
+            <p class="text-muted">곧 새로운 자동차 뉴스가 업데이트될 예정입니다.</p>
+        </div>
+        {{ end }}
+    </div>
+</section>
+
+<style>
+.category-page {
+    min-height: 60vh;
+}
+
+.category-header {
+    position: relative;
+}
+
+.category-title {
+    font-weight: 700;
+    color: #333;
+}
+
+.category-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(45deg, #dc3545, #e74c3c);
+    border-radius: 2px;
+    margin-top: 1rem;
+}
+
+.news-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.news-card .card-img-top {
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.news-card .card-body {
+    padding: 1.5rem;
+    min-height: 180px;
+}
+
+.news-card .card-title {
+    font-weight: 600;
+    color: #333 !important;
+}
+
+.news-card:hover .card-title {
+    color: #dc3545 !important;
+}
+
+/* Pagination Styles */
+.pagination-nav .pagination {
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pagination-nav .page-link {
+    border: none;
+    color: #6c757d;
+    padding: 0.75rem 1.25rem;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.pagination-nav .page-item.active .page-link {
+    background: linear-gradient(45deg, #dc3545, #e74c3c);
+    color: white;
+    font-weight: 600;
+}
+
+.pagination-nav .page-link:hover {
+    background-color: #f8f9fa;
+    color: #dc3545;
+    transform: translateY(-2px);
+}
+
+.pagination-nav .page-item:first-child .page-link {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.pagination-nav .page-item:last-child .page-link {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .news-card .card-body {
+        min-height: 160px;
+        padding: 1.25rem;
+    }
+    
+    .news-card .card-img-top {
+        height: 200px !important;
+    }
+    
+    .pagination-nav .page-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+</style>
+{{ end }}

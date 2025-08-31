@@ -1,0 +1,77 @@
+{{ define "main" }}
+<section class="error-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="error-content">
+                    <div class="error-header">
+                        <h1 class="error-code">404</h1>
+                        <h2 class="error-title">페이지를 찾을 수 없습니다</h2>
+                        <p class="error-description">
+                            요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.<br>
+                            아래 링크를 통해 원하시는 정보를 찾아보세요.
+                        </p>
+                    </div>
+                    
+                    <div class="error-actions">
+                        <a href="{{ "/" | relURL }}" class="btn btn-primary">
+                            <i class="fas fa-home"></i> 홈으로 돌아가기
+                        </a>
+                        <button class="btn btn-outline-secondary" onclick="history.back()">
+                            <i class="fas fa-arrow-left"></i> 이전 페이지
+                        </button>
+                    </div>
+
+                    <!-- Popular Articles -->
+                    <div class="error-suggestions">
+                        <h4>인기 기사</h4>
+                        <div class="row">
+                            {{ range first 3 .Site.RegularPages }}
+                            <div class="col-md-4 mb-3">
+                                <article class="suggestion-article">
+                                    <div class="suggestion-thumb">
+                                        {{ if .Params.images }}
+                                        <img src="{{ index .Params.images 0 }}" alt="{{ .Title }}" class="img-fluid">
+                                        {{ else }}
+                                        <div class="no-image">
+                                            <i class="fas fa-newspaper"></i>
+                                        </div>
+                                        {{ end }}
+                                    </div>
+                                    <div class="suggestion-content">
+                                        <h5 class="suggestion-title">
+                                            <a href="{{ .Permalink }}">{{ .Title | truncate 50 }}</a>
+                                        </h5>
+                                        <div class="suggestion-meta">
+                                            <span class="suggestion-category">{{ .Section | title }}</span>
+                                            <span class="suggestion-date">{{ .Date.Format "01월 02일" }}</span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            {{ end }}
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="error-links">
+                        <h4>빠른 링크</h4>
+                        <div class="quick-links">
+                            <a href="/car/" class="quick-link">
+                                <i class="fas fa-star"></i> 웰니스
+                            </a>
+                            <a href="/authors/" class="quick-link">
+                                <i class="fas fa-users"></i> 기자 소개
+                            </a>
+                            <a href="/about/" class="quick-link">
+                                <i class="fas fa-info-circle"></i> 회사 소개
+                            </a>
+                            <a href="/automotive/" class="quick-link">자동차 뉴스</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}
