@@ -1,0 +1,149 @@
+21:13:07.233	Cloning repository...
+21:13:08.007	From https://github.com/zpzpzp001001/01
+21:13:08.007	 * branch            f96946dcf62a72971b00ab33b338cd1286789e4a -> FETCH_HEAD
+21:13:08.007	
+21:13:08.057	HEAD is now at f96946d 1
+21:13:08.057	
+21:13:08.136	
+21:13:08.137	Using v2 root directory strategy
+21:13:08.158	Success: Finished cloning repository files
+21:13:10.291	Checking for configuration in a Wrangler configuration file (BETA)
+21:13:10.292	
+21:13:11.390	No wrangler.toml file found. Continuing.
+21:13:11.455	Detected the following tools from environment: pip@25.1.1, python@3.13.3
+21:13:11.456	Installing project dependencies: pip install -r requirements.txt
+21:13:12.861	Collecting feedparser==6.0.10 (from -r requirements.txt (line 1))
+21:13:12.916	  Downloading feedparser-6.0.10-py3-none-any.whl.metadata (2.3 kB)
+21:13:12.958	Collecting requests==2.31.0 (from -r requirements.txt (line 2))
+21:13:12.966	  Downloading requests-2.31.0-py3-none-any.whl.metadata (4.6 kB)
+21:13:13.017	Collecting pytz==2023.3 (from -r requirements.txt (line 3))
+21:13:13.026	  Downloading pytz-2023.3-py2.py3-none-any.whl.metadata (22 kB)
+21:13:13.050	Collecting beautifulsoup4==4.12.2 (from -r requirements.txt (line 4))
+21:13:13.059	  Downloading beautifulsoup4-4.12.2-py3-none-any.whl.metadata (3.6 kB)
+21:13:13.131	Collecting openai>=1.55.3 (from -r requirements.txt (line 5))
+21:13:13.140	  Downloading openai-1.100.2-py3-none-any.whl.metadata (29 kB)
+21:13:13.175	Collecting httpx<0.28.0 (from -r requirements.txt (line 6))
+21:13:13.184	  Downloading httpx-0.27.2-py3-none-any.whl.metadata (7.1 kB)
+21:13:13.206	Collecting unidecode==1.3.7 (from -r requirements.txt (line 7))
+21:13:13.216	  Downloading Unidecode-1.3.7-py3-none-any.whl.metadata (13 kB)
+21:13:13.235	Collecting python-frontmatter==1.1.0 (from -r requirements.txt (line 8))
+21:13:13.243	  Downloading python_frontmatter-1.1.0-py3-none-any.whl.metadata (4.1 kB)
+21:13:13.262	Collecting sgmllib3k (from feedparser==6.0.10->-r requirements.txt (line 1))
+21:13:13.271	  Downloading sgmllib3k-1.0.0.tar.gz (5.8 kB)
+21:13:13.277	  Installing build dependencies: started
+21:13:14.426	  Installing build dependencies: finished with status 'done'
+21:13:14.427	  Getting requirements to build wheel: started
+21:13:14.848	  Getting requirements to build wheel: finished with status 'done'
+21:13:14.849	  Preparing metadata (pyproject.toml): started
+21:13:15.075	  Preparing metadata (pyproject.toml): finished with status 'done'
+21:13:15.173	Collecting charset-normalizer<4,>=2 (from requests==2.31.0->-r requirements.txt (line 2))
+21:13:15.183	  Downloading charset_normalizer-3.4.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (36 kB)
+21:13:15.209	Collecting idna<4,>=2.5 (from requests==2.31.0->-r requirements.txt (line 2))
+21:13:15.211	  Using cached idna-3.10-py3-none-any.whl.metadata (10 kB)
+21:13:15.251	Collecting urllib3<3,>=1.21.1 (from requests==2.31.0->-r requirements.txt (line 2))
+21:13:15.260	  Downloading urllib3-2.5.0-py3-none-any.whl.metadata (6.5 kB)
+21:13:15.291	Collecting certifi>=2017.4.17 (from requests==2.31.0->-r requirements.txt (line 2))
+21:13:15.300	  Downloading certifi-2025.8.3-py3-none-any.whl.metadata (2.4 kB)
+21:13:15.326	Collecting soupsieve>1.2 (from beautifulsoup4==4.12.2->-r requirements.txt (line 4))
+21:13:15.335	  Downloading soupsieve-2.7-py3-none-any.whl.metadata (4.6 kB)
+21:13:15.381	Collecting PyYAML (from python-frontmatter==1.1.0->-r requirements.txt (line 8))
+21:13:15.389	  Downloading PyYAML-6.0.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.1 kB)
+21:13:15.417	Collecting anyio (from httpx<0.28.0->-r requirements.txt (line 6))
+21:13:15.426	  Downloading anyio-4.10.0-py3-none-any.whl.metadata (4.0 kB)
+21:13:15.455	Collecting httpcore==1.* (from httpx<0.28.0->-r requirements.txt (line 6))
+21:13:15.459	  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+21:13:15.477	Collecting sniffio (from httpx<0.28.0->-r requirements.txt (line 6))
+21:13:15.480	  Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+21:13:15.500	Collecting h11>=0.16 (from httpcore==1.*->httpx<0.28.0->-r requirements.txt (line 6))
+21:13:15.503	  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+21:13:15.531	Collecting distro<2,>=1.7.0 (from openai>=1.55.3->-r requirements.txt (line 5))
+21:13:15.540	  Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+21:13:15.621	Collecting jiter<1,>=0.4.0 (from openai>=1.55.3->-r requirements.txt (line 5))
+21:13:15.631	  Downloading jiter-0.10.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+21:13:15.771	Collecting pydantic<3,>=1.9.0 (from openai>=1.55.3->-r requirements.txt (line 5))
+21:13:15.779	  Downloading pydantic-2.11.7-py3-none-any.whl.metadata (67 kB)
+21:13:15.832	Collecting tqdm>4 (from openai>=1.55.3->-r requirements.txt (line 5))
+21:13:15.840	  Downloading tqdm-4.67.1-py3-none-any.whl.metadata (57 kB)
+21:13:15.873	Collecting typing-extensions<5,>=4.11 (from openai>=1.55.3->-r requirements.txt (line 5))
+21:13:15.881	  Downloading typing_extensions-4.14.1-py3-none-any.whl.metadata (3.0 kB)
+21:13:15.906	Collecting annotated-types>=0.6.0 (from pydantic<3,>=1.9.0->openai>=1.55.3->-r requirements.txt (line 5))
+21:13:15.914	  Downloading annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+21:13:16.668	Collecting pydantic-core==2.33.2 (from pydantic<3,>=1.9.0->openai>=1.55.3->-r requirements.txt (line 5))
+21:13:16.676	  Downloading pydantic_core-2.33.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+21:13:16.698	Collecting typing-inspection>=0.4.0 (from pydantic<3,>=1.9.0->openai>=1.55.3->-r requirements.txt (line 5))
+21:13:16.706	  Downloading typing_inspection-0.4.1-py3-none-any.whl.metadata (2.6 kB)
+21:13:16.742	Downloading feedparser-6.0.10-py3-none-any.whl (81 kB)
+21:13:16.753	Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+21:13:16.763	Downloading pytz-2023.3-py2.py3-none-any.whl (502 kB)
+21:13:16.781	Downloading beautifulsoup4-4.12.2-py3-none-any.whl (142 kB)
+21:13:16.792	Downloading Unidecode-1.3.7-py3-none-any.whl (235 kB)
+21:13:16.802	Downloading python_frontmatter-1.1.0-py3-none-any.whl (9.8 kB)
+21:13:16.812	Downloading httpx-0.27.2-py3-none-any.whl (76 kB)
+21:13:16.821	Downloading charset_normalizer-3.4.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+21:13:16.826	Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+21:13:16.829	Using cached idna-3.10-py3-none-any.whl (70 kB)
+21:13:16.838	Downloading urllib3-2.5.0-py3-none-any.whl (129 kB)
+21:13:16.848	Downloading openai-1.100.2-py3-none-any.whl (787 kB)
+21:13:16.858	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 787.8/787.8 kB 102.2 MB/s eta 0:00:00
+21:13:16.867	Downloading anyio-4.10.0-py3-none-any.whl (107 kB)
+21:13:16.877	Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+21:13:16.888	Downloading jiter-0.10.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (350 kB)
+21:13:16.898	Downloading pydantic-2.11.7-py3-none-any.whl (444 kB)
+21:13:16.909	Downloading pydantic_core-2.33.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)
+21:13:16.921	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 225.6 MB/s eta 0:00:00
+21:13:16.930	Downloading typing_extensions-4.14.1-py3-none-any.whl (43 kB)
+21:13:16.940	Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+21:13:16.951	Downloading certifi-2025.8.3-py3-none-any.whl (161 kB)
+21:13:16.955	Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+21:13:16.959	Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+21:13:16.968	Downloading soupsieve-2.7-py3-none-any.whl (36 kB)
+21:13:16.978	Downloading tqdm-4.67.1-py3-none-any.whl (78 kB)
+21:13:16.990	Downloading typing_inspection-0.4.1-py3-none-any.whl (14 kB)
+21:13:17.000	Downloading PyYAML-6.0.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (759 kB)
+21:13:17.007	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 759.5/759.5 kB 170.5 MB/s eta 0:00:00
+21:13:17.049	Building wheels for collected packages: sgmllib3k
+21:13:17.051	  Building wheel for sgmllib3k (pyproject.toml): started
+21:13:17.323	  Building wheel for sgmllib3k (pyproject.toml): finished with status 'done'
+21:13:17.325	  Created wheel for sgmllib3k: filename=sgmllib3k-1.0.0-py3-none-any.whl size=6089 sha256=bfded7e01e0fcd30ba07590ef784279eae60cb77970f0d980161602f9c311331
+21:13:17.325	  Stored in directory: /opt/buildhome/.cache/pip/wheels/3d/4d/ef/37cdccc18d6fd7e0dd7817dcdf9146d4d6789c32a227a28134
+21:13:17.327	Successfully built sgmllib3k
+21:13:17.392	Installing collected packages: sgmllib3k, pytz, urllib3, unidecode, typing-extensions, tqdm, soupsieve, sniffio, PyYAML, jiter, idna, h11, feedparser, distro, charset-normalizer, certifi, annotated-types, typing-inspection, requests, python-frontmatter, pydantic-core, httpcore, beautifulsoup4, anyio, pydantic, httpx, openai
+21:13:19.750	
+21:13:19.754	Successfully installed PyYAML-6.0.2 annotated-types-0.7.0 anyio-4.10.0 beautifulsoup4-4.12.2 certifi-2025.8.3 charset-normalizer-3.4.3 distro-1.9.0 feedparser-6.0.10 h11-0.16.0 httpcore-1.0.9 httpx-0.27.2 idna-3.10 jiter-0.10.0 openai-1.100.2 pydantic-2.11.7 pydantic-core-2.33.2 python-frontmatter-1.1.0 pytz-2023.3 requests-2.31.0 sgmllib3k-1.0.0 sniffio-1.3.1 soupsieve-2.7 tqdm-4.67.1 typing-extensions-4.14.1 typing-inspection-0.4.1 unidecode-1.3.7 urllib3-2.5.0
+21:13:19.840	
+21:13:19.840	[notice] A new release of pip is available: 25.1.1 -> 25.2
+21:13:19.841	[notice] To update, run: pip3 install --upgrade pip
+21:13:20.041	Reshimming asdf python...
+21:13:24.519	Executing user command: hugo
+21:13:24.760	Start building sites … 
+21:13:24.760	hugo v0.147.7-189453612e4bedc4f27495a7b1145321c8d89807+extended linux/amd64 BuildDate=2025-05-31T12:41:12Z VendorInfo=gohugoio
+21:13:24.760	
+21:13:28.017	
+21:13:28.018	                  │  KO  
+21:13:28.018	──────────────────┼──────
+21:13:28.018	 Pages            │ 1811 
+21:13:28.018	 Paginator pages  │  152 
+21:13:28.018	 Non-page files   │    0 
+21:13:28.018	 Static files     │   13 
+21:13:28.019	 Processed images │    0 
+21:13:28.019	 Aliases          │  729 
+21:13:28.019	 Cleaned          │    0 
+21:13:28.019	
+21:13:28.019	Total in 3264 ms
+21:13:28.041	Finished
+21:13:28.959	Checking for configuration in a Wrangler configuration file (BETA)
+21:13:28.960	
+21:13:30.055	No wrangler.toml file found. Continuing.
+21:13:30.056	Note: No functions dir at /functions found. Skipping.
+21:13:30.057	Validating asset output directory
+21:13:33.910	Deploying your site to Cloudflare's global network...
+21:13:34.825	Parsed 31 valid header rules.
+21:13:37.060	Uploading... (1476/2703)
+21:13:41.309	Uploading... (1885/2703)
+21:13:41.478	Uploading... (2294/2703)
+21:13:41.566	Uploading... (2703/2703)
+21:13:41.567	✨ Success! Uploaded 1227 files (1476 already uploaded) (4.90 sec)
+21:13:41.567	
+21:13:42.566	✨ Upload complete!
+21:13:46.550	Success: Assets published!
+21:13:52.109	Error: Failed to publish your Function. Got error: Unknown internal error occurred.
